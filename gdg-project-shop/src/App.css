@@ -1,0 +1,73 @@
+#root {
+  background-color: #ffffff;
+  width: 100vw;
+}
+
+button {
+  background-color: #ffffff;
+  color: #a5a5a5;
+  border: none;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+input {
+  background-color: #ffffff;
+  color: #a5a5a5;
+  border: 1px solid #a5a5a5;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  width: 16rem;
+}
+.form button {
+  background-color: #227eff;
+  color: #ffffff;
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
+  width: 4rem;
+}
+
+img {
+  width: 20rem;
+  opacity: 30%;
+}
+
+.content p {
+  font-size: 0.75rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+}
+
+nav img {
+  width: 2rem;
+}
+
+nav div {
+  display: flex;
+  gap: 24px;
+}
+
+.buy, .administer {
+  color: #227eff;
+  border: 1px solid #227eff;
+  border-radius: 0.25rem;
+  width: 24rem;
+  padding: 0.75rem;
+  align-self: center;
+  margin: 4rem;
+}
+
+.administer {
+  padding: 0.25rem;
+  margin: 0;
+  width: 3rem;
+}
