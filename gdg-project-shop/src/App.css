@@ -1,6 +1,9 @@
-/* 전체 화면 */
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --main-width: 630px; /* 검색 영역과 구매 버튼이 같은 폭을 쓰도록 */
 }
 
 body {
@@ -9,6 +12,7 @@ body {
 }
 
 .app {
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,40 +20,43 @@ body {
 
 /* Navbar */
 .navbar {
-  height: 80px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12%;
+  padding: 0 6.5%;
   border-bottom: 1px solid #ddd;
   background-color: white;
 }
 
 .navbar-logo {
-  width: 65px;
+  width: 58px;
   height: auto;
 }
 
 .filter-buttons {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 22px;
 }
 
 .filter-buttons button {
   border: none;
   background: none;
+  padding: 0;
   color: #555;
-  font-size: 15px;
+  font-size: 17px;
   cursor: pointer;
+  opacity: 0.7;
 }
 
 .admin-button {
   border: 1px solid #1683ff;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 6px;
   background-color: white;
   color: #1683ff;
+  font-size: 18px;
   cursor: pointer;
 }
 
@@ -59,29 +66,34 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 80px;
+  padding-top: 70px;
 }
 
 .search-area {
   display: flex;
   align-items: center;
   gap: 20px;
-  width: 700px;
+  width: var(--main-width);
   max-width: 90%;
 }
 
 .search-area input {
   flex: 1;
-  height: 48px;
+  height: 40px;
   padding: 0 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 16px;
 }
 
+.search-area input::placeholder {
+  color: #888;
+  opacity: 0.7;
+}
+
 .search-area button {
-  width: 130px;
-  height: 48px;
+  width: 145px;
+  height: 40px;
   border: none;
   border-radius: 8px;
   background-color: #0788f9;
@@ -95,19 +107,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 6ch;
   color: #888;
 }
 
 .empty-result img {
-  width: 300px;
+  width: 290px;
   height: auto;
   opacity: 0.15;
+  margin-bottom: -60px;
 }
 
 .empty-result p {
-  margin-top: 20px;
-  font-size: 16px;
+  margin: 0;
+  font-size: 17px;
+  opacity: 0.6;       /* 글자도 흐릿하게 (목표 화면처럼) */
 }
 
 /* Footer */
@@ -115,12 +129,13 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 0 0 40px;
+  padding: 0 0 24px;
 }
 
 .purchase-button {
-  width: 40%;
-  height: 56px;
+  width: var(--main-width);
+  max-width: 90%;
+  height: 48px;
 
   border: 2px solid #0788f9;
   border-radius: 9px;
