@@ -1,3 +1,4 @@
+@import "tailwindcss";
 * {
   box-sizing: border-box;
 }
@@ -149,4 +150,272 @@ body {
 
 .purchase-button:hover {
   background-color: #f0f8ff;
+}
+
+/* 상품 목록 */
+.item-list {
+  width: var(--main-width);
+  max-width: 90%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 상품 카드 */
+.item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.item-name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.item-detail {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.item-price {
+  font-size: 17px;
+}
+
+.item-stock {
+  font-size: 13px;
+  color: #888;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.item-actions input {
+  width: 200px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.item-actions input::placeholder {
+  color: #888;
+  opacity: 0.7;
+}
+
+.item-actions button {
+  width: 145px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0788f9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 비활성화된 버튼 (이미 장바구니에 담김) */
+.item-actions button:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* 비활성화된 입력창 */
+.item-actions input:disabled {
+  background-color: #f5f5f5;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+/* 메뉴: 현재 페이지 (파란색 + 굵게) */
+.filter-buttons button.active {
+  color: #0788f9;
+  font-weight: bold;
+  opacity: 1;
+}
+
+/* 카테고리 페이지 */
+.category-page {
+  width: var(--main-width);
+  max-width: 90%;
+}
+
+.category-page .item-list {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
+.category-select {
+  position: relative;   /* 선택지를 이 버튼 바로 아래에 띄우기 위함 */
+  width: 160px;
+}
+
+.category-trigger {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: white;
+  color: #888;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.category-options {
+  position: absolute;   /* 아래 상품 목록 위에 겹쳐서 표시 */
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 10;
+}
+
+.category-options button {
+  width: 100%;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+  color: #333;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.category-options button:hover {
+  background-color: #d8d8d8;
+}
+
+/* 가격 범위 페이지 */
+.price-page {
+  width: var(--main-width);
+  max-width: 90%;
+}
+
+.price-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.price-search input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.price-search button {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0788f9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.price-error {
+  margin: 12px 0 0;
+  color: #e53935;
+  font-size: 14px;
+}
+
+.price-empty {
+  margin-top: 80px;
+  text-align: center;
+  color: #888;
+}
+
+.price-page .item-list {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
+/* 정렬 페이지 */
+.sort-page {
+  width: var(--main-width);
+  max-width: 90%;
+}
+
+.sort-page .item-list {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
+.sort-select {
+  position: relative;
+  width: 180px;
+}
+
+.sort-trigger {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: white;
+  color: #888;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 10;
+}
+
+.sort-options button {
+  width: 100%;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+  color: #333;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-options button:hover {
+  background-color: #d8d8d8;
 }

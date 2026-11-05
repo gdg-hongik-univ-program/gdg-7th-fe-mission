@@ -1,12 +1,18 @@
-
 import { useState } from "react";
+import ItemList from "./ItemList";
+import { itemData } from "../data/mockData";
 
 function Content() {
   const [search, setSearch] = useState("");
+  const [keyword, setKeyword] = useState("");
 
   const handleSearch = () => {
-    console.log(search);
+    setKeyword(search);
   };
+
+  const filteredItems = itemData.filter((item) =>
+    item.itemName.includes(keyword)
+  );
 
   return (
     <main className="content">
@@ -18,17 +24,17 @@ function Content() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-
-        <button onClick={handleSearch}>
-          검색
-        </button>
+        <button onClick={handleSearch}>검색</button>
       </div>
 
-      {/* 검색 결과가 없을 때 보여줄 로고 */}
-      <div className="empty-result">
-        <img src="/gdg-logo.svg" alt="GDG Logo" />
-        <p>검색 결과가 없습니다.</p>
-      </div>
+      {filteredItems.length > 0 ? (
+        <ItemList items={filteredItems} />
+      ) : (
+        <div className="empty-result">
+          <img src="/gdg-logo.svg" alt="GDG Logo" />
+          <p>검색 결과가 없습니다.</p>
+        </div>
+      )}
     </main>
   );
 }
