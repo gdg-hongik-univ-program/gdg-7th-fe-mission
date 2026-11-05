@@ -21,17 +21,17 @@
 3. 사이드 이펙트 감소
 ----------------------------------------------------------
 ## useState : 컴포넌트의 상태 관리
-const [state, setState] = useState(initialState);
-initialState : 상태 초기 값
+- const [state, setState] = useState(initialState);
+- initialState : 상태 초기 값
 ---------------------------------------------------
 ## useEffect : 외부 시스템과 컴포넌트를 동기화
-컴포넌트가 mount unmount update 되었을 때 특정 작업을 실행
-useEffect(callback, dependencyArray);
-[] : 의존성 배열, 이 코드를 언제 다시 실행할 지 정함
-[count] : 처음 한 번, count가 바뀔 때마다
-생략 : 화면을 다시 그릴 때 마다
+- 컴포넌트가 mount unmount update 되었을 때 특정 작업을 실행
+- useEffect(callback, dependencyArray);
+- [] : 의존성 배열, 이 코드를 언제 다시 실행할 지 정함
+- [count] : 처음 한 번, count가 바뀔 때마다
+- 생략 : 화면을 다시 그릴 때 마다
 ------------------------------------------------
 ## useNavigate : 코드로 페이지 이동하기
-어떤 일이 끝나고 이동해야 할 때 사용
-import { useNavigate } from "react-router-dom";
+- 어떤 일이 끝나고 이동해야 할 때 사용
+- import { useNavigate } from "react-router-dom";
 
