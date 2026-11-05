@@ -24,3 +24,23 @@ HTML5의 History API(pushState, replaceState, popstate event)를 사용하여 UR
 - link는 component, useNavigate는 함수
 - 코드에서 navigate을 호출 할 때 이동
 - 링크를 눌렀을 때 이동
+-----------------------------------
+## 일반 CSS와 CSS Modules, Tailwind CSS의 차이
+
+### 일반 CSS
+- 작성 위치 : .css
+- 적용 범위 : 프로젝트 전체
+- 장점 : 가장 기본적이고 배우기 쉬움
+- 단점 : 프로젝트가 커지면 관리가 어려움
+
+### CSS Modules
+- 작성 위치 : .module.css
+- 적용 범위 : 불러온 컴포넌트
+- 장점 : css 그대로 쓰면서 충돌을 막음
+- 단점 : 파일이 늘어남
+
+### Tailwind CSS
+- 작성 위치 : JSX의 className
+- 적용 범위 : 클래스를 쓴 태그만
+- 장점 : 파일을 오가지 않고 빠르게 작성
+- 단점 : className이 길어지고 클래스 이름을 익혀야함
