@@ -1,17 +1,18 @@
+import {useNavigate, Link} from "react-router";
+
 function Navbar() {
-  const outPut = (e) => {
-    console.log(e.target.textContent);
-  }
+  const navigate = useNavigate();
 
   return (
-    <nav class="navbar">
-      <a href="https://docs.gdghongik.com/" title="gdg-hongik">
-        <img class="logo" src="/gdg-favicon.svg" width="40px"/>
-      </a>
+    <nav className="navbar">
+      <Link to="/">
+        <img className="logo" src="/gdg-favicon.svg" width="40px"/>
+      </Link>
+      
       <div>
-        <button onClick={outPut}>카테고리 필터링</button>
-        <button onClick={outPut}>가격 범위 필터링</button>
-        <button onClick={outPut}>상품 정렬</button>
+        <button onClick={() => navigate("/category")}>카테고리 필터링</button>
+        <button onClick={() => navigate("/price-bound")}>가격 범위 필터링</button>
+        <button onClick={() => navigate("/sort")}>상품 정렬</button>
       </div>
       <button id="manage">관리자</button>
     </nav>
