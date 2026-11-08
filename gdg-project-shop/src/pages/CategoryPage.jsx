@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ItemList from "./ItemList";
+import ItemList from "../components/ItemList";
 import { itemData } from "../data/mockData";
 
 // mockData에서 카테고리 종류만 뽑기 (중복 제거): 의류, 전자기기, 화장품, 식품

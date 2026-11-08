@@ -2,10 +2,10 @@ import './App.css'
 import { Routes, Route } from 'react-router'
 import Navbar from './components/Navbar'
 import Content from './components/Content'
-import CategoryPage from './components/CategoryPage'
+import CategoryPage from './pages/CategoryPage'
 import Footer from './components/Footer'
-import PricePage from './components/PricePage'
-import SortPage from './components/SortPage'
+import PricePage from './pages/PricePage'
+import SortPage from './pages/SortPage'
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ItemList from "./ItemList";
+import ItemList from "../components/ItemList";
 import { itemData } from "../data/mockData";
 
 const sortOptions = [
