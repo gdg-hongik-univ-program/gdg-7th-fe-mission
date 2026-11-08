@@ -31,3 +31,21 @@ const App = () => {
 ### `Link`와 `useNavigate`를 활용한 페이지 이동
 
 `Link` 컴포넌트와 `to` 속성을 `<a>` 태그처럼 이용하여 경로 이동을 구현할 수 있다. `<button>` 태그와 `onClick` 속성을 이용할 때에는 `useNavigate`으로 경로를 변경한다. 
+
+## CSS
+
+### CSS Modules
+: CSS 클래스 이름이 컴포넌트 내에서만 유효하도록 만들어 전역적인 클래스 이름 충돌 문제를 방지하는 기술 <br>
+
+스타일을 적용할 컴포넌트와 동일한 위치에 `[컴포넌트명].module.css` 형식으로 CSS 파일을 생성해 사용한다. 클래스 이름을 찾는 범위가 로컬 scope로 한정되어 충돌 걱정이 없다. 
+
+### Tailwind CSS
+: 미리 정의된 수많은 Utility Classes를 조합하여 UI를 구축하는 프레임워크 <br>
+
+- Utility Class: `flex`, `pt-4`, `text-center`와 같이 단 하나의 CSS 속성만 담당하는 작은 단위의 클래스
+
+```html
+<h1 className="text-3xl font-bold text-red-500">Hello, Tailwind CSS!</h1>
+```
+
+HTML 내에서 바로 스타일 적용이 가능해 개발 속도가 매우 빠르며, 미리 정의된 값을 사용하므로 디자인 일관성을 유지하기 좋다. 빌드 시 미사용 유틸리티 클래스는 자동 제거되어 최종 CSS 파일 크기가 작다. 
