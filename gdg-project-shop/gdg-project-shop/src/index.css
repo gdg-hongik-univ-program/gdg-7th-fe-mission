@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+ *{
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  color: #333333;
+  font-family: sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.navbar-logo {
+  width: 40px;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  font-size: 14px;
+}
+
+.navbar-button {
+  padding: 6px 12px;
+  border: 1px solid #4285f4;
+  border-radius: 6px;
+  background-color: white;
+  color: #4285f4;
+  cursor: pointer;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.search-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 80px;
+}
+
+.search-input {
+  width: 320px;
+  padding: 8px 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+}
+
+.search-button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4285f4;
+  color: white;
+  cursor: pointer;
+}
+
+.empty-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #999999;
+}
+
+.empty-logo {
+  width: 200px;
+  opacity: 0.3;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px 40px;
+}
+
+.cart-button {
+  width: 100%;
+  max-width: 600px;
+  padding: 14px;
+  border: 1px solid #4285f4;
+  border-radius: 8px;
+  background-color: white;
+  color: #4285f4;
+  font-size: 16px;
+  cursor: pointer;
+}
