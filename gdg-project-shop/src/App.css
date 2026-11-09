@@ -14,6 +14,9 @@
     border: none;
     cursor: pointer;
   }
+  button:disabled {
+    cursor: auto;
+  }
 
   .form {
     display: flex;
