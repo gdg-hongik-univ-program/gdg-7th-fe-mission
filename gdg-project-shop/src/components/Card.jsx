@@ -7,7 +7,6 @@ function Card(props) {
     const change = e => {
         if (e.target.value == 0) {
             setCount('');
-            setIsDisabled(true);
         } else {
             setCount((e.target.value<=props.quant) ? e.target.value : props.quant);
         }
