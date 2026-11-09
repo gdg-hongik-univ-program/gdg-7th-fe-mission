@@ -1,75 +1,89 @@
 @import "tailwindcss";
 
-#root {
-  background-color: #ffffff;
-  width: 100vw;
-}
+@layer base {
 
-button {
-  background-color: #ffffff;
-  color: #a5a5a5;
-  border: none;
-}
+  #root {
+    background-color: #ffffff;
+    width: 100vw;
+  }
 
-.form {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
 
-input {
-  background-color: #ffffff;
-  color: #a5a5a5;
-  border: 1px solid #a5a5a5;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  width: 16rem;
-}
-.form button {
-  background-color: #227eff;
-  color: #ffffff;
-  padding: 0.25rem 1rem;
-  border-radius: 0.25rem;
-  width: 4rem;
-}
+  button {
+    background-color: #ffffff;
+    color: #a5a5a5;
+    border: none;
+    cursor: pointer;
+  }
 
-img {
-  width: 20rem;
-  opacity: 30%;
-}
+  .form {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
 
-.content p {
-  font-size: 0.75rem;
-}
+  input {
+    background-color: #ffffff;
+    color: #a5a5a5;
+    border: 1px solid #a5a5a5;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    width: 16rem;
+  }
+  .form button {
+    background-color: #227eff;
+    color: #ffffff;
+    padding: 0.25rem 1rem;
+    border-radius: 0.25rem;
+    width: 4rem;
+  }
 
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 1rem;
-}
+  img {
+    width: 20rem;
+    opacity: 30%;
+  }
 
-nav img {
-  width: 2rem;
-}
+  .content p {
+    font-size: 0.75rem;
+  }
 
-nav div {
-  display: flex;
-  gap: 24px;
-}
+  nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+  }
 
-.buy, .administer {
-  color: #227eff;
-  border: 1px solid #227eff;
-  border-radius: 0.25rem;
-  width: 24rem;
-  padding: 0.75rem;
-  align-self: center;
-  margin: 4rem;
-}
+  nav img {
+    width: 2rem;
+    opacity: 100%;
+  }
 
-.administer {
-  padding: 0.25rem;
-  margin: 0;
-  width: 3rem;
+  nav div {
+    display: flex;
+    gap: 24px;
+  }
+
+  .buy, .administer {
+    color: #227eff;
+    border: 1px solid #227eff;
+    border-radius: 0.25rem;
+    width: 36rem;
+    padding: 0.75rem;
+    align-self: center;
+    margin: 4rem;
+  }
+
+  .administer {
+    padding: 0.25rem;
+    margin: 0;
+    width: 4rem;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 }

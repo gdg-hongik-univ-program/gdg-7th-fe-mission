@@ -1,7 +1,7 @@
-function Content() {
+function Home() {
     const click = () => {
-        const val = document.querySelector("#search")
-        console.log(val.value);
+        const val = document.querySelector("#search").value
+        console.log(val);
     };
 
     return (
@@ -16,4 +16,4 @@ function Content() {
     );
 }
 
-export default Content;
+export default Home;
