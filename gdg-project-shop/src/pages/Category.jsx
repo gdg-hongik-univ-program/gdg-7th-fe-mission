@@ -19,7 +19,7 @@ function Category(props) {
     ];
 
     const options = cats.map(i => (
-        <option value={i.name}>{i.name}</option>
+        <option key={i.name} value={i.name}>{i.name}</option>
     ));
 
     const items = data => data.map(i => (
@@ -31,7 +31,7 @@ function Category(props) {
             <select value={category} onChange={e => setCategory(e.target.value)} className="m-4 border">
                 {options}
             </select>
-            <div className="category flex flex-col gap-8 items-center">{items(cats[cats.findIndex(cate => cate.name == category)].value)}</div>
+            <div className="category flex flex-col gap-8 items-center">{items(cats.find(cate => cate.name==category).value)}</div>
         </div>
     )
 }
