@@ -5,8 +5,8 @@ function Card(props) {
     const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
-        if (props.cart.find(item => item.id == props.id)) {
-            console.log(props.cart.find(item => item.id == props.id))
+        if (props.cart.find(item => item.id == props.key)) {
+            console.log(props.cart.find(item => item.id == props.key))
             setIsDisabled(true);
         }
         return () => setIsDisabled(false);
@@ -21,7 +21,7 @@ function Card(props) {
     }
     const handleClick = () => {
         if (count) {
-            props.addCart({id: props.id, count: count});
+            props.addCart({id: props.key, count: count});
             setIsDisabled(true);
         }
     }

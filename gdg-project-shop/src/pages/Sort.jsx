@@ -14,7 +14,7 @@ function Sort(props) {
     });
 
     const items = data => data.map(i => (
-        <Card addCart={props.addCart} cart={props.cart} id={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
+        <Card addCart={props.addCart} cart={props.cart} key={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
     ));
 
     return (
