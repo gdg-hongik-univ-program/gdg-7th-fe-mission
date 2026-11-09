@@ -26,7 +26,7 @@ function App() {
           <Route path="/sort-items" element={<Sort cart={cart} addCart={addCart} />}></Route>
         </Routes>
       </div>
-      <Footer />
+      <Footer cart={cart} />
     </>
   )
 }
