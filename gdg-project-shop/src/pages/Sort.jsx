@@ -19,10 +19,13 @@ function Sort(props) {
 
     return (
         <div>
-            <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="m-4 border">
-                <option value="name">상품명</option>
-                <option value="price">가격</option>
-            </select>
+            <div className="flex gap-2 m-4">
+                <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="border">
+                    <option value="name">상품명</option>
+                    <option value="price">가격</option>
+                </select>
+                <p>순서로 정렬</p>
+            </div>
             <div className="category flex flex-col gap-8 items-center">{items(sorted)}</div>
         </div>
     )

@@ -1,11 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Card(props) {
     const [count, setCount] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
 
+    useEffect(() => {
+        if (props.cart.find(item => item.id == props.id)) {
+            console.log(props.cart.find(item => item.id == props.id))
+            setIsDisabled(true);
+        }
+        return () => setIsDisabled(false);
+    }, []);
+
     const change = e => {
-        if (e.target.value == 0) {
+        if (e.target.value <= 0) {
             setCount('');
         } else {
             setCount((e.target.value<=props.quant) ? e.target.value : props.quant);
