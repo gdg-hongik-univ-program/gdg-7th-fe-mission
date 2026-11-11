@@ -1,4 +1,8 @@
-function Content() {
+import { itemData } from '../data/mockData';
+import Item from './Item';
+ 
+
+function Content({ cart, setCart }) {
   return (
     <main className="content">
       <div className="search-box">
@@ -6,9 +10,10 @@ function Content() {
         <button className="search-button">검색</button>
       </div>
  
-      <div className="empty-result">
-        <img src="/gdg-favicon.svg" alt="GDG 로고" className="empty-logo" />
-        <p>검색 결과가 없습니다</p>
+      <div className="max-w-3xl mx-auto mt-6">
+        {itemData.map((item) => (
+          <Item key={item.id} item={item} cart={cart} setCart={setCart} />
+        ))}
       </div>
     </main>
   );
