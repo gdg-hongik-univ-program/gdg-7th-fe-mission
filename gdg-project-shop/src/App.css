@@ -1,0 +1,74 @@
+.adminButton{
+  background-color: aliceblue;
+  color: blue;
+  border: 1px solid blue;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menuButton{
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.navBar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  border-bottom: 1px solid gray;
+}
+
+.content{
+  min-height: 80vh;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainSection{
+  flex: 1;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.inputBox{
+  border-radius: 4px;
+  width: 300px;
+  border: 1px solid black;
+
+}
+
+.searchButton{
+  border-radius: 4px;
+  color:white;
+  background-color: rgb(76, 130, 238);
+  border: none;
+  margin: 30px 10px;
+}
+
+.mainLogo{
+  width: 250px;
+  opacity: 0.3;
+  margin-bottom: -50px;
+}
+
+.searchResult{
+  font-size: 15px;
+}
+
+.footerBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.footerButton{
+  border-radius: 4px;
+  color: blue;
+  border: 1px solid blue;
+  width: 300px;
+}
