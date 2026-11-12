@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Item from "../components/Item.jsx";
-import { itemData } from "../data/mockData.js";
 
-function PricePage({ cart, onAddToCart }) {
+function PricePage({ products, cart, onAddToCart }) {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
@@ -20,7 +19,7 @@ function PricePage({ cart, onAddToCart }) {
 
   const filteredItems = isInvalid
     ? []
-    : itemData.filter((item) => item.price >= min && item.price <= max);
+    : products.filter((item) => item.price >= min && item.price <= max);
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-6 p-6">

@@ -1,17 +1,16 @@
 import { useState } from "react";
 import Item from "../components/Item.jsx";
-import { itemData } from "../data/mockData.js";
 
 const categories = ["의류", "전자기기", "화장품", "식품"];
 
-function CategoryPage({ cart, onAddToCart }) {
+function CategoryPage({ products, cart, onAddToCart }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const filteredItems =
     selectedCategory === ""
-      ? itemData
-      : itemData.filter((item) => item.category === selectedCategory);
+      ? products
+      : products.filter((item) => item.category === selectedCategory);
 
   function handleSelect(category) {
     setSelectedCategory(category === selectedCategory ? "" : category);
