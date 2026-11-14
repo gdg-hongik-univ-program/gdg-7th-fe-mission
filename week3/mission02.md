@@ -1,0 +1,2 @@
+fetch()는 JavaScript에 기본적으로 내장된 HTTP 통신 함수이다. 그렇기 때문에 별도의 라이브러리를 설치하지 않아도 서버에 응답을 주고 받을 수 있다. 그리고 이때 Promise객체를 반환하기 때문에 .then()이나 async/await를 사용할 수 있다. 서버로부터 받은 응답 본문을 response.json을 통해 json데이터로 변환시켜야한다. 그리고 fetch()는 서버가 http오류 응답을 보내더라도 자동으로 catch()를 실행하지는 않아 response.ok를 통해 상태코드의 범위를 살펴야한다.
+반면 axios는 서버와 http통신을 할 수 있도록 도와주는 외부 라이브러리이다. 그렇기 때문에 따로 설치를 한 뒤, import해서 사용해야한다. fetch()는 response.json()을 직접호출해야 하지만 axios는 jason 응답을 자동으로 javascript 객체로 변환해준다. 또한 fetch()와 달리 http상태코드가 정상범위가 아닐경우 promise를 거부하므로 catch()에서 처리할 수 있다.
