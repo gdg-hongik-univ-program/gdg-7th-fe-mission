@@ -1,18 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemList from "../components/ItemList";
-import { itemData } from "../data/mockData";
+import { getProducts } from "../apis/products";
+import LoadingMessage from "../messages/LoadingMessage";
+import ErrorMessage from "../messages/ErrorMessage";
 
-// mockData에서 카테고리 종류만 뽑기 (중복 제거): 의류, 전자기기, 화장품, 식품
-const categories = [...new Set(itemData.map((item) => item.category))];
+// ...
 
 function CategoryPage() {
-  const [open, setOpen] = useState(false);     // 선택지 열림 여부
-  const [selected, setSelected] = useState(""); // 선택된 카테고리
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("");
 
-  // 선택된 카테고리가 있으면 그 상품만, 없으면 전체
+  useEffect(() => {
+    let ignore = false;
+
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await getProducts();
+        if (!ignore) setItems(data);
+      } catch (e) {
+        if (!ignore) setError(e.message);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // 불러온 데이터에서 카테고리 종류만 뽑기 (중복 제거)
+  const categories = [...new Set(items.map((item) => item.category))];
+
   const filteredItems = selected
-    ? itemData.filter((item) => item.category === selected)
-    : itemData;
+    ? items.filter((item) => item.category === selected)
+    : items;
 
   const handleSelect = (category) => {
     setSelected(category);
@@ -22,7 +50,6 @@ function CategoryPage() {
   return (
     <main className="content">
       <div className="category-page">
-        {/* 카테고리 선택 버튼 + 선택지 */}
         <div className="category-select">
           <button
             className="category-trigger"
@@ -44,7 +71,13 @@ function CategoryPage() {
           )}
         </div>
 
-        <ItemList items={filteredItems} />
+        {loading ? (
+          <LoadingMessage />
+        ) : error ? (
+          <ErrorMessage message={error} />
+        ) : (
+          <ItemList items={filteredItems} />
+        )}
       </div>
     </main>
   );

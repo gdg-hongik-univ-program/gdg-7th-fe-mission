@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemList from "../components/ItemList";
-import { itemData } from "../data/mockData";
+import { getProducts } from "../apis/products";
+import LoadingMessage from "../messages/LoadingMessage";
+import ErrorMessage from "../messages/ErrorMessage";
 
 const sortOptions = [
   { value: "name", label: "이름(가나다순)" },
@@ -9,19 +11,43 @@ const sortOptions = [
 ];
 
 function SortPage() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(""); // "", "name", "high", "low"
+  const [selected, setSelected] = useState("");
 
-  // 1) filter: 유효한 상품만 남김 (가격이 숫자인 상품)
-  // 2) [...배열]: sort는 원본을 바꾸기 때문에 복사본을 정렬
-  const sortedItems = [...itemData.filter((item) => typeof item.price === "number")].sort(
-    (a, b) => {
+  useEffect(() => {
+    let ignore = false;
+
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await getProducts();
+        if (!ignore) setItems(data);
+      } catch (e) {
+        if (!ignore) setError(e.message);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // sort는 원본을 바꾸기 때문에 filter로 만든 복사본을 정렬
+  const sortedItems = items
+    .filter((item) => typeof item.price === "number")
+    .sort((a, b) => {
       if (selected === "name") return a.itemName.localeCompare(b.itemName, "ko");
       if (selected === "high") return b.price - a.price;
       if (selected === "low") return a.price - b.price;
-      return 0; // 선택 전: 원래 순서 유지
-    }
-  );
+      return 0;
+    });
 
   const handleSelect = (value) => {
     setSelected(value);
@@ -51,7 +77,13 @@ function SortPage() {
           )}
         </div>
 
-        <ItemList items={sortedItems} />
+        {loading ? (
+          <LoadingMessage />
+        ) : error ? (
+          <ErrorMessage message={error} />
+        ) : (
+          <ItemList items={sortedItems} />
+        )}
       </div>
     </main>
   );

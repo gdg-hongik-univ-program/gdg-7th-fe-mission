@@ -1,5 +1,4 @@
 import Item from "./Item";
-import { itemData } from "../data/mockData";
 
 function ItemList({ items = itemData }) {
   return (

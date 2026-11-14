@@ -1,12 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemList from "../components/ItemList";
-import { itemData } from "../data/mockData";
+import { getProducts } from "../apis/products";
+import LoadingMessage from "../messages/LoadingMessage";
+import ErrorMessage from "../messages/ErrorMessage";
 
 function PricePage() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const [minInput, setMinInput] = useState("");
   const [maxInput, setMaxInput] = useState("");
-  const [range, setRange] = useState({ min: null, max: null }); // 검색 버튼을 눌렀을 때 적용되는 범위
-  const [error, setError] = useState("");
+  const [range, setRange] = useState({ min: null, max: null });
+  const [error, setError] = useState(""); // 입력값 검증 에러
+
+  useEffect(() => {
+    let ignore = false;
+
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await getProducts();
+        if (!ignore) setItems(data);
+      } catch (e) {
+        if (!ignore) setLoadError(e.message);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const handleSearch = () => {
     const hasMin = minInput.trim() !== "";
@@ -14,7 +41,6 @@ function PricePage() {
     const min = hasMin ? Number(minInput) : null;
     const max = hasMax ? Number(maxInput) : null;
 
-    // 잘못된 입력 검사
     if ((hasMin && Number.isNaN(min)) || (hasMax && Number.isNaN(max))) {
       setError("가격은 숫자로 입력해주세요.");
       return;
@@ -32,8 +58,7 @@ function PricePage() {
     setRange({ min, max });
   };
 
-  // 비어 있는 쪽은 제한 없음으로 처리
-  const filteredItems = itemData.filter((item) => {
+  const filteredItems = items.filter((item) => {
     const overMin = range.min === null || item.price >= range.min;
     const underMax = range.max === null || item.price <= range.max;
     return overMin && underMax;
@@ -62,10 +87,12 @@ function PricePage() {
 
         {error && <p className="price-error">{error}</p>}
 
-        {filteredItems.length > 0 ? (
-          <ItemList items={filteredItems} />
+        {loading ? (
+          <LoadingMessage />
+        ) : loadError ? (
+          <ErrorMessage message={loadError} />
         ) : (
-          <p className="price-empty">해당 가격 범위의 상품이 없습니다.</p>
+          <ItemList items={filteredItems} />
         )}
       </div>
     </main>

@@ -1,16 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
-import { itemData } from "../data/mockData";
+import { getProducts } from "../apis/products";
+import LoadingMessage from "../messages/LoadingMessage";
+import ErrorMessage from "../messages/ErrorMessage";
 
 function Content() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
+
+  useEffect(() => {
+    let ignore = false;
+
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await getProducts();
+        if (!ignore) setItems(data);
+      } catch (e) {
+        if (!ignore) setError(e.message);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const handleSearch = () => {
     setKeyword(search);
   };
 
-  const filteredItems = itemData.filter((item) =>
+  const filteredItems = items.filter((item) =>
     item.itemName.includes(keyword)
   );
 
@@ -27,13 +54,12 @@ function Content() {
         <button onClick={handleSearch}>검색</button>
       </div>
 
-      {filteredItems.length > 0 ? (
-        <ItemList items={filteredItems} />
+      {loading ? (
+        <LoadingMessage />
+      ) : error ? (
+        <ErrorMessage message={error} />
       ) : (
-        <div className="empty-result">
-          <img src="/gdg-logo.svg" alt="GDG Logo" />
-          <p>검색 결과가 없습니다.</p>
-        </div>
+        <ItemList items={filteredItems} />
       )}
     </main>
   );
