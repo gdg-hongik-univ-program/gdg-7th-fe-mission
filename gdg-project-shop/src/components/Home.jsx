@@ -1,12 +1,11 @@
 import { use, useState } from "react";
-import { itemData } from "../data/mockData.js";
 import Item from './Item.jsx'
 
-function Home({addToCart, cart}) {
+function Home({item, addToCart, cart}) {
   const [keyWord, setKeyWord] = useState("");
   const [search, setSearch] = useState("");
 
-  const filterItem = search.trim() ? itemData.filter((item) => item.itemName === search.trim()) : [];
+  const filterItem = search.trim() ? item.filter((item) => item.itemName === search.trim()) : [];
   
   return (
     <div className="flex flex-col items-center gap-3 p-3">
@@ -16,11 +15,11 @@ function Home({addToCart, cart}) {
       </div>
 
       <div className="flex flex-col items-center rounded-2xl gap-4 p-2">
-        {filterItem.length === 0 ? (<><img src="/gdg-favicon.svg" className="w-[400px] h-auto opacity-15"></img><p>검색 결과가 없습니다</p></>) : (
-          filterItem.map((item) => (
-            <Item key={item.id} item={item} addToCart={addToCart} cart={cart}/>
-          ))
-        ) }
+          {filterItem.length === 0 ? (<><img src="/gdg-favicon.svg" className="w-[400px] h-auto opacity-15"></img><p>검색 결과가 없습니다</p></>) : (
+            filterItem.map((item) => (
+              <Item key={item.id} item={item} addToCart={addToCart} cart={cart}/>
+            ))
+          ) }
       </div>
     </div>
   );  

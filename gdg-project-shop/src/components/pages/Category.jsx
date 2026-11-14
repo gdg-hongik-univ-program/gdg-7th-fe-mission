@@ -1,8 +1,7 @@
 import Item from "../Item";
 import { useState } from "react";
-import { itemData } from "../../data/mockData";
 
-function Category({addToCart, cart}) {
+function Category({item, addToCart, cart}) {
     const [isOpen,setOpen] =  useState(false);
     const [category,setCatagory] = useState("카테고리 선택");
 
@@ -11,7 +10,7 @@ function Category({addToCart, cart}) {
         setOpen(false);
     }
 
-    const filterItem_C = category ? itemData.filter((item) => item.category === category) : [];
+    const filterItem_C = category ? item.filter((item) => item.category === category) : [];
 
     return (
         <div className="flex flex-col items-center p-3">

@@ -13,7 +13,7 @@ function Item({ item, addToCart, cart}){
                 </h3>
 
                 <div className='flex items-center gap-3'>
-                    <p className='font-light text-sm'>{item.price} 원</p>
+                    <p className='text-sm'>{item.price} 원</p>
                     <p className='text-gray-40 text-xs'>남은 수량: {item.quantity}개</p>
                 </div>
                 
