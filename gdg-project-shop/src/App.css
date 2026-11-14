@@ -1,0 +1,530 @@
+@import "tailwindcss";
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --main-width: 630px; /* 검색 영역과 구매 버튼이 같은 폭을 쓰도록 */
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6.5%;
+  border-bottom: 1px solid #ddd;
+  background-color: white;
+}
+
+.navbar-logo {
+  width: 58px;
+  height: auto;
+}
+
+.filter-buttons {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.filter-buttons button {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #555;
+  font-size: 17px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.admin-button {
+  border: 1px solid #1683ff;
+  border-radius: 8px;
+  padding: 6px;
+  background-color: white;
+  color: #1683ff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
+}
+
+.search-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: var(--main-width);
+  max-width: 90%;
+}
+
+.search-area input {
+  flex: 1;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.search-area input::placeholder {
+  color: #888;
+  opacity: 0.7;
+}
+
+.search-area button {
+  width: 145px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0788f9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 검색 결과가 없을 때 */
+.empty-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6ch;
+  color: #888;
+}
+
+.empty-result img {
+  width: 290px;
+  height: auto;
+  opacity: 0.15;
+  margin-bottom: -60px;
+}
+
+.empty-result p {
+  margin: 0;
+  font-size: 17px;
+  opacity: 0.6;       /* 글자도 흐릿하게 (목표 화면처럼) */
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 24px;
+}
+
+.purchase-button {
+  width: var(--main-width);
+  max-width: 90%;
+  height: 48px;
+
+  border: 2px solid #0788f9;
+  border-radius: 9px;
+
+  background-color: white;
+  color: #0788f9;
+
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.purchase-button:hover {
+  background-color: #f0f8ff;
+}
+
+/* 상품 목록 */
+.item-list {
+  width: var(--main-width);
+  max-width: 90%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 상품 카드 */
+.item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.item-name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.item-detail {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.item-price {
+  font-size: 17px;
+}
+
+.item-stock {
+  font-size: 13px;
+  color: #888;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.item-actions input {
+  width: 200px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.item-actions input::placeholder {
+  color: #888;
+  opacity: 0.7;
+}
+
+.item-actions button {
+  width: 145px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0788f9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 비활성화된 버튼 (이미 장바구니에 담김) */
+.item-actions button:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* 비활성화된 입력창 */
+.item-actions input:disabled {
+  background-color: #f5f5f5;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+/* 메뉴: 현재 페이지 (파란색 + 굵게) */
+.filter-buttons button.active {
+  color: #0788f9;
+  font-weight: bold;
+  opacity: 1;
+}
+
+/* 카테고리 페이지 */
+.category-page {
+  width: var(--main-width);
+  max-width: 90%;
+}
+
+.category-page .item-list {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
+.category-select {
+  position: relative;   /* 선택지를 이 버튼 바로 아래에 띄우기 위함 */
+  width: 160px;
+}
+
+.category-trigger {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: white;
+  color: #888;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.category-options {
+  position: absolute;   /* 아래 상품 목록 위에 겹쳐서 표시 */
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 10;
+}
+
+.category-options button {
+  width: 100%;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+  color: #333;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.category-options button:hover {
+  background-color: #d8d8d8;
+}
+
+/* 가격 범위 페이지 */
+.price-page {
+  width: var(--main-width);
+  max-width: 90%;
+}
+
+.price-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.price-search input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.price-search button {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0788f9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.price-error {
+  margin: 12px 0 0;
+  color: #e53935;
+  font-size: 14px;
+}
+
+.price-empty {
+  margin-top: 80px;
+  text-align: center;
+  color: #888;
+}
+
+.price-page .item-list {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
+/* 정렬 페이지 */
+.sort-page {
+  width: var(--main-width);
+  max-width: 90%;
+}
+
+.sort-page .item-list {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
+.sort-select {
+  position: relative;
+  width: 180px;
+}
+
+.sort-trigger {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: white;
+  color: #888;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 10;
+}
+
+.sort-options button {
+  width: 100%;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+  color: #333;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-options button:hover {
+  background-color: #d8d8d8;
+}
+
+.status-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 0;
+  color: #5f6368;
+}
+
+.status-message.error {
+  color: #d93025;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #dadce0;
+  border-top-color: #1a73e8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.management-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 0 64px;
+}
+
+.management-section {
+  margin-bottom: 56px;
+}
+
+.management-section h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.management-card {
+  border: 1px solid #c4c7c5;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.management-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 24px;
+}
+
+.management-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.management-field span {
+  min-width: 48px;
+}
+
+.management-field input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+}
+
+.management-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.management-footer.end {
+  justify-content: flex-end;
+}
+
+.management-note {
+  font-size: 11px;
+  color: #80868b;
+}
+
+.management-btn {
+  width: 93px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.management-btn.primary {
+  background: #3b8cf7;
+}
+
+.management-btn.danger {
+  background: #f00;
+}

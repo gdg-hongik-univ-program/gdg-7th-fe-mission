@@ -1,0 +1,5 @@
+1. 클래스는 .description처럼 표현하고 같은 클래스를 가진 여러 요소에 적용이 가능하지만 id는 #notice처럼 표현하고 고유한 id를 가진 요소에 적용이 가능하다. 우선순위는 id가 더 높다. 
+2. margin은 요소 바깥쪽 공간을, padding은 요소 내부의 공간을 조절한다. box-sizing: 에서 content-box(생략하기도 한다)는 테두리까지 포함하면 너비가 padding과 border의 값을 두번씩 더해줘야 되지만 border-box에서는 너비가 총 너비이다.
+3. css flexible box layout은 자식의 크기, 방향을 자유롭게 조절할 수 있다. justify-content의 flex-direction이 space-between이므로 아이템의 공백이 일정하며 align-items의 기본값인 stretch로 인해 제일 높은 값까지 늘어난다.
+수평구성일 박스가 부모 밖으로 나오거나 높이가 최대가 아닐때가 있는데,  display:flex를 쓸 경우 코드도 단순하고 부모가 자식 높이를 알아서 감싼다. container은 item을 감싸는 요소이다. flex-direction은 flex items의 주 축을 설정한다. justify-content는 주 축의 정렬 방법을 설정한다. align-items는 교차 축에서 items의 정렬 방법을 설정하고 gap은 각 아이템의 간격을 설정한다. display: flex는 수직, display: inline-flex는 수평방향을 가진다. 이때 방향은 container에 해당한다.
+축(주 축, 교차 축)일때 row(수평, 수직), column(수직, 수평) 즉, 말그대로 원래 의미가 주 축이다. flex-wrap은 여러 줄 묶음을 설정한다.
