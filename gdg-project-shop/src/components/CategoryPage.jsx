@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { itemData } from '../data/mockData';
 import Item from './Item';
  
-function CategoryPage({ cart, setCart }) {
+function CategoryPage({ items, cart, setCart }) {
   const [category, setCategory] = useState('');
 
   const filteredItems =
     category === ''
-      ? itemData
-      : itemData.filter((item) => item.category === category);
+      ? items
+      : items.filter((item) => item.category === category);
  
   return (
     <main className="max-w-3xl mx-auto mt-6">

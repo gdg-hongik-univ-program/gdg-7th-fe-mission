@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { itemData } from '../data/mockData';
 import Item from './Item';
  
-function PricePage({ cart, setCart }) {
+function PricePage({ items, cart, setCart }) {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [filteredItems, setFilteredItems] = useState(itemData);
+  const [filteredItems, setFilteredItems] = useState(null);
   const handleSearch = () => {
     if (minPrice === '' || maxPrice === '') {
       alert('최소 가격과 최대 가격을 모두 입력해주세요');
@@ -21,8 +21,10 @@ function PricePage({ cart, setCart }) {
     }
     setFilteredItems(itemData.filter((item) => item.price >= min && item.price <= max));
   };
- 
-  return (
+
+const shownItems = filteredItems === null ? items : filteredItems;
+  
+   return (
     <main className="max-w-3xl mx-auto mt-6">
       <div className="flex gap-3 mb-6">
         <input
@@ -45,7 +47,7 @@ function PricePage({ cart, setCart }) {
           검색
         </button>
       </div>
-      {filteredItems.map((item) => (
+      {shownItems.map((item) => (
         <Item key={item.id} item={item} cart={cart} setCart={setCart} />
       ))}
     </main>
