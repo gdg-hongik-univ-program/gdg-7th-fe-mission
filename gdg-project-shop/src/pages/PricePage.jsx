@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { itemData } from '../data/mockData';
 import Item from '../components/Item';
 
-export default function PricePage({ cart, onAddToCart }) {
+export default function PricePage({ products, cart, onAddToCart }) {
   const [minInput, setMinInput] = useState("");   // 최소 가격 입력값
   const [maxInput, setMaxInput] = useState("");   // 최대 가격 입력값
   const [range, setRange] = useState(null);       // 검색 버튼을 눌렀을 때 정해진 범위
@@ -26,12 +25,12 @@ export default function PricePage({ cart, onAddToCart }) {
 
   const items = range === null
     ? []
-    : itemData.filter((item) => item.price >= range.min && item.price <= range.max);
+    : products.filter((item) => item.price >= range.min && item.price <= range.max);
 
   return (
     <section className="mx-auto flex max-w-2xl flex-col gap-10 px-6 py-12">
 
-      /*  가격 입력 + 검색 */
+      {/*  가격 입력 + 검색 */}
       <div className="flex items-center gap-3">
         <input
           type="text"
@@ -57,7 +56,7 @@ export default function PricePage({ cart, onAddToCart }) {
         </button>
       </div>
 
-      /* 검색했을 때만 결과 보여 주기 */
+      {/* 검색했을 때만 결과 보여 주기 */}
       {range !== null && (
         <div className="flex flex-col gap-3">
           <div className="flex justify-end">
