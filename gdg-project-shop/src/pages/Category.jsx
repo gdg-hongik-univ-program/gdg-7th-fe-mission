@@ -1,31 +1,15 @@
 import Card from '../components/Card';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 // import { itemData } from '../data/mockData.js';
-import { products } from '../../src/apis/products.js';
 
-function Category(props) {
+function Category({ itemData, ...props }) {
     const [category, setCategory] = useState("전체");
-    const [itemData, setItemData] = useState([]);
-
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const data = await products();
-                console.log(data);
-                setItemData(data);
-            } catch (error) {
-                console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
-            }
-        };
-
-        fetchProducts();
-    }, []);
 
     const categories = [
         {name: "전체", value: itemData},
         {name: "의류", value: itemData.filter(i => i.category=="의류")}, 
         {name: "전자기기", value: itemData.filter(i => i.category=="전자기기")},
-        {name: "화장품",  value: itemData.filter(i => i.category=="화장품")},
+        {name: "화장품", value: itemData.filter(i => i.category=="화장품")},
         {name: "식품", value: itemData.filter(i => i.category=="식품")}
     ];
 
