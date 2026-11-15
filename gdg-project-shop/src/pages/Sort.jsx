@@ -1,9 +1,25 @@
 import Card from '../components/Card';
-import { useState } from 'react';
-import { itemData } from '../data/mockData.js';
+import { useState, useEffect } from 'react';
+// import { itemData } from '../data/mockData.js';
+import { products } from '../../src/apis/products.js';
 
 function Sort(props) {
     const [sortBy, setSortBy] = useState("name");
+    const [itemData, setItemData] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const data = await products();
+                console.log(data);
+                setItemData(data);
+            } catch (error) {
+                console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     const sorted = (sortBy=="name") ? itemData.sort((a, b) => {
         if (a.itemName < b.itemName) return -1;
