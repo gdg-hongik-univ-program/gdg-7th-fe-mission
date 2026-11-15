@@ -1,10 +1,24 @@
 import Card from '../components/Card';
-import { useState } from 'react';
-import { itemData } from '../data/mockData.js';
-// import { products } from '../../public/data/products.json';
+import { useState, useEffect } from 'react';
+// import { itemData } from '../data/mockData.js';
+import { products } from '../../src/apis/products.js';
 
 function Category(props) {
     const [category, setCategory] = useState("전체");
+    const [itemData, setItemData] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const data = await products();
+                setItemData(data);
+            } catch (error) {
+                console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     const categories = [
         {name: "전체", value: itemData},
@@ -27,7 +41,7 @@ function Category(props) {
             <select value={category} onChange={e => setCategory(e.target.value)} className="m-4 border">
                 {options}
             </select>
-            <div className="category flex flex-col gap-8 items-center">{items(categories.find(n => n.name==category).value)}</div>
+            <div className="category flex flex-col gap-8 items-center">{items(categories.find(n => n.name==category)?.value)}</div>
         </div>
     )
 }
