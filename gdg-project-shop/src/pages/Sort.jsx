@@ -1,12 +1,10 @@
 import { useState } from 'react';
-
-import { itemData } from '../data/mockData.js';
 import ProductList from '../components/ProductList.jsx';
 
-function Sort({ cart, addToCart }) {
+function Sort({ items, cart, addToCart }) {
   const [sortType, setSortType] = useState("name");
 
-  const sortedItems = [...itemData].sort((a, b) => {
+  const sortedItems = [...items].sort((a, b) => {
     if (sortType === "name") {
       return a.itemName.localeCompare(b.itemName, "ko");
     }

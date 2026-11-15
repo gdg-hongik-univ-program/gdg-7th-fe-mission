@@ -44,18 +44,88 @@ main img {
   align-items: center;
 }
 
-.result::before {
-  content: "";
+.content {
+  position: relative;
+  flex: 0 0 80%;
+  overflow-y: auto;
+}
+
+/* 검색창과 상품 목록 겹침 수정 */
+.content .input-group {
+  position: relative;
+  margin: 20px auto 30px;
+}
+
+/* 상품 목록 위치 */
+.content .product-list {
+  position: relative;
+  margin: 0 auto 30px;
+}
+
+/* 검색 영역 */
+.search-area {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.input-group button {
+  flex: none;
+  padding: 10px 20px;
+}
+
+/* 로고 */
+.watermark {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   width: 400px;
   height: 400px;
+
   background-image: url("/gdg-favicon.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+
   opacity: 0.1;
-  z-index: 0;
   pointer-events: none;
+  z-index: 0;
+}
+
+/* 상품 목록 */
+.product-list {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  width: min(900px, calc(100% - 40px));
+  margin: 0 auto 30px;
+}
+
+/* 검색 결과 없음 */
+.no-result {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .result p {
@@ -288,4 +358,125 @@ main img {
   color: #e53935;
   font-size: 13px;
   margin-top: 6px;
+}
+
+/* 메인 화면 */
+.content {
+  position: relative;
+  flex: 0 0 80%;
+  overflow-y: auto;
+}
+
+main img {
+  width: 320px;
+  height: auto;
+  opacity: 0.1;
+}
+
+.admin-page {
+  max-width: 680px;
+  margin: 40px auto 80px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.admin-section h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.admin-card {
+  border: 1px solid #999;
+  border-radius: 12px;
+  padding: 24px 28px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 32px;
+  row-gap: 16px;
+}
+
+.admin-field {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-field label {
+  width: 56px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  flex-shrink: 0;
+  word-break: keep-all;
+}
+
+.admin-field input,
+.admin-field select {
+  flex: 1;
+  min-width: 0;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #999;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.admin-field input:focus,
+.admin-field select:focus {
+  border-color: #2b7de9;
+}
+
+.admin-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-card-footer.right-only {
+  justify-content: flex-end;
+}
+
+.admin-guide {
+  font-size: 11px;
+  color: #888;
+}
+
+.admin-btn {
+  width: 140px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-btn.primary {
+  background-color: #2b7de9;
+}
+
+.admin-btn.primary:hover {
+  background-color: #1f68c7;
+}
+
+.admin-btn.danger {
+  background-color: #ff0000;
+}
+
+.admin-btn.danger:hover {
+  background-color: #d90000;
 }

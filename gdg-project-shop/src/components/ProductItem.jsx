@@ -56,7 +56,7 @@ function ProductItem({ item, cart, addToCart }) {
         장바구니
       </button>
 
-      {isOverStock && (
+      {isOverStock && !isAdded && (
         <p className="error-message">
           남은 수량은 {item.quantity}개입니다. 수량을 다시 입력해 주세요.
         </p>

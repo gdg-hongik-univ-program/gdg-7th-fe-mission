@@ -1,12 +1,10 @@
 import { useState } from 'react';
-
-import { itemData } from '../data/mockData.js';
 import ProductList from '../components/ProductList.jsx';
 
-function Category({ cart, addToCart }) {
+function Category({ items, cart, addToCart }) {
   const [category, setCategory] = useState("");
 
-  const filteredItems = itemData.filter((item) => {
+  const filteredItems = items.filter((item) => {
     if (category === "") {
       return true;
     }

@@ -1,9 +1,7 @@
 import { useState } from 'react';
-
-import { itemData } from '../data/mockData.js';
 import ProductList from '../components/ProductList.jsx';
 
-function Price({ cart, addToCart }) {
+function Price({ items, cart, addToCart }) {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
@@ -18,7 +16,7 @@ function Price({ cart, addToCart }) {
     );
 
   // 가격 범위에 맞는 상품 필터링
-  const filteredItems = itemData.filter((item) => {
+  const filteredItems = items.filter((item) => {
     if (isInvalid) {
       return false;
     }

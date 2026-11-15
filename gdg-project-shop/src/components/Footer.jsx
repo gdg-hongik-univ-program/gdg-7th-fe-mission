@@ -1,7 +1,7 @@
-import { itemData } from '../data/mockData.js';
-
-function Footer({ cart }) {
-
+import { useLocation } from 'react-router-dom';
+function Footer({ cart, items }) {
+  const location = useLocation();
+  if (location.pathname === '/admin') return null;
   const handlePurchase = () => {
     if (cart.length === 0) {
       console.log("장바구니가 비어 있습니다.");
@@ -11,7 +11,7 @@ function Footer({ cart }) {
     console.log("===== 구매 목록 =====");
 
     cart.forEach((cartItem) => {
-      const product = itemData.find(
+      const product = items.find(
         (item) => item.id === cartItem.id
       );
 
