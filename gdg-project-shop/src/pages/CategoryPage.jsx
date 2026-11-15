@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { itemData } from "../data/mockData";
 import Item from "../components/Item";
 
-function CategoryPage({ cart, onAddToCart }) {
+function CategoryPage({ products, cart, onAddToCart }) {
   const [category, setCategory] = useState("");
 
   const filteredItems =
-    category === "" ? itemData : itemData.filter((item) => item.category === category);
+    category === "" ? products : products.filter((item) => item.category === category);
 
   return (
     <main className="content">

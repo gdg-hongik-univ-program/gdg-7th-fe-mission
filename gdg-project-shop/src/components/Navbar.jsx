@@ -15,7 +15,9 @@ function Navbar() {
         <button onClick={() => navigate("/sort")}>상품 정렬</button>
       </nav>
 
-      <button className="navbar-admin">관리자</button>
+      <button className="navbar-admin" onClick={() => navigate("/admin")}>
+        관리자
+      </button>
     </header>
   );
 }
