@@ -2,7 +2,7 @@ import { itemData } from '../data/mockData';
 import Item from './Item';
  
 
-function Content({ cart, setCart }) {
+function Content({ items, cart, setCart }) {
   return (
     <main className="content">
       <div className="search-box">
@@ -11,7 +11,7 @@ function Content({ cart, setCart }) {
       </div>
  
       <div className="max-w-3xl mx-auto mt-6">
-        {itemData.map((item) => (
+        {items.map((item) => (
           <Item key={item.id} item={item} cart={cart} setCart={setCart} />
         ))}
       </div>
