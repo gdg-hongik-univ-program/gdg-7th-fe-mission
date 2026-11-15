@@ -1,24 +1,20 @@
 import Card from '../components/Card';
 import { useState } from 'react';
 import { itemData } from '../data/mockData.js';
+// import { products } from '../../public/data/products.json';
 
 function Category(props) {
     const [category, setCategory] = useState("전체");
 
-    const clothings = itemData.filter(i => i.id<=3);
-    const digitals = itemData.filter(i => (i.id>=4 && i.id<=6));
-    const cosmetics = itemData.filter(i => (i.id>=7 && i.id<=9));
-    const foods = itemData.filter(i => (i.id>=10 && i.id<=12));
-
-    const cats = [
+    const categories = [
         {name: "전체", value: itemData},
-        {name: "의류", value: clothings}, 
-        {name: "전자기기", value: digitals}, 
-        {name: "화장품", value: cosmetics},
-        {name: "음식", value: foods}
+        {name: "의류", value: itemData.filter(i => i.category=="의류")}, 
+        {name: "전자기기", value: itemData.filter(i => i.category=="전자기기")},
+        {name: "화장품",  value: itemData.filter(i => i.category=="화장품")},
+        {name: "식품", value: itemData.filter(i => i.category=="식품")}
     ];
 
-    const options = cats.map(i => (
+    const options = categories.map(i => (
         <option key={i.name} value={i.name}>{i.name}</option>
     ));
 
@@ -31,7 +27,7 @@ function Category(props) {
             <select value={category} onChange={e => setCategory(e.target.value)} className="m-4 border">
                 {options}
             </select>
-            <div className="category flex flex-col gap-8 items-center">{items(cats.find(cate => cate.name==category).value)}</div>
+            <div className="category flex flex-col gap-8 items-center">{items(categories.find(n => n.name==category).value)}</div>
         </div>
     )
 }
