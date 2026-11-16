@@ -1,4 +1,34 @@
+import axios from 'axios';
+
+const dev = true;
+const BASE_URL = dev ? "/data" : "http://192.168.232.255:8080";
+
 export async function products() {
-    const response = await fetch("/data/products.json");
-    return response.json();
+    const response = await axios.get(dev ? `${BASE_URL}/products.json` : `${BASE_URL}/products`);
+    return response.data;
+}
+
+export async function search(text) {
+    const response = await axios.get(`${BASE_URL}/products?itemName=${text}`);
+    return response.data;
+}
+
+export async function admin_products(body) {
+    const response = await axios.post(`${BASE_URL}/admin/products`, body);
+    return response.data;
+}
+
+export async function admin_products_stock(body) {
+    const response = await axios.patch(`${BASE_URL}/admin/products/stock`, body);
+    return response.data;
+}
+
+export async function admin_delete(body) {
+    const response = await axios.delete(`${BASE_URL}/admin/products`, { data: body });
+    return response.data;
+}
+
+export async function buy(body) {
+    const response = await axios.post(`${BASE_URL}/products/purchase`, body);
+    return response.data;
 }

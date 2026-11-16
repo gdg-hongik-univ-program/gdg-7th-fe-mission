@@ -1,10 +1,23 @@
 import { useState } from 'react';
+import { admin_products } from '../apis/products';
 
 function Add() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [quantity, setQuantity] = useState(0);
     const [category, setCategory] = useState("");
+
+    const handleClick = async () => {
+        const product = {
+            itemName: name, 
+            price: price, 
+            quantity: quantity, 
+            category: category
+        }
+        console.log("상품 등록: ", product);
+        const data = await admin_products(product);
+        console.log(data);
+    }
     return (
         <div className="add-view">
             <h4 className="p-2 w-full max-w-140">상품 등록</h4>
@@ -27,7 +40,7 @@ function Add() {
                         <input type="text" value={category} onChange={e => setCategory(e.target.value)} placeholder="카테고리 선택..."></input>
                     </label>
                 </div>
-                <button onClick={() => console.log("상품 등록: ", { itemName: name, price: price, quantity: quantity, category: category })}>등록</button>
+                <button onClick={handleClick}>등록</button>
             </div>
         </div>
     )

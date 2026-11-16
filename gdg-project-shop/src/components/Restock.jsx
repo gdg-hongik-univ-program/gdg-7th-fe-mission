@@ -1,8 +1,17 @@
 import { useState } from 'react';
+import { admin_products_stock } from '../apis/products';
 
 function Restock() {
     const [name, setName] = useState("");
     const [quantity, setQuantity] = useState(0);
+    const handleClick = async () => {
+        const body = {
+            itemName: name, 
+            quantity: quantity
+        }
+        admin_products_stock(body);
+        console.log("재고 추가: ", body);
+    }
     return (
         <div className="restock-view">
             <h4 className="p-2 w-full max-w-140">재고 추가</h4>
@@ -17,7 +26,7 @@ function Restock() {
                         <input type="number" value={quantity} onChange={e => setQuantity(e.target.value)} placeholder="수량 입력..."></input>
                     </label>
                 </div>
-                <button onClick={() => console.log("재고 추가: ", {itemName: name, quantity: quantity})}>추가</button>
+                <button onClick={handleClick}>추가</button>
             </div>
         </div>
     )

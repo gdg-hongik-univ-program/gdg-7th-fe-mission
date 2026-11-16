@@ -1,8 +1,11 @@
 import { useLocation } from "react-router";
+import { buy } from "../apis/products";
 
 function Footer(props) {
-    const buy = () => {
+    const buy = async () => {
         console.log(props.cart);
+        const body = props.cart;
+        await buy(body);
     }
     const location = useLocation();
     return (

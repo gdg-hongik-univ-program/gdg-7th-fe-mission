@@ -4,9 +4,10 @@ import { useState } from 'react';
 
 function Category({ itemData, ...props }) {
     const [category, setCategory] = useState("전체");
+    const categories = ["전체", ...new Set(itemData.map(item => item.category))];
 
-    const options = itemData.map(i => (
-        <option key={i.itemName} value={i.category}>{i.category}</option>
+    const options = categories.map(i => (
+        <option key={i} value={i}>{i}</option>
     ));
 
     const items = data => data.map(i => (
