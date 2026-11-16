@@ -67,7 +67,9 @@ export const purchaseProducts = async (cart) => {
 };
 
 export const searchProduct = async (itemName) => {
-  const res = await fetch(`${BASE_URL}/products?itemName=${encodeURIComponent(itemName)}`);
+  const res = await fetch(
+    `${BASE_URL}/products?itemName=${encodeURIComponent(itemName)}`,
+  );
 
   if (!res.ok) {
     throw new Error("상품을 찾지 못했습니다.");

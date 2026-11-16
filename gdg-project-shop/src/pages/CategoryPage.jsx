@@ -5,7 +5,9 @@ function CategoryPage({ products, cart, onAddToCart }) {
   const [category, setCategory] = useState("");
 
   const filteredItems =
-    category === "" ? products : products.filter((item) => item.category === category);
+    category === ""
+      ? products
+      : products.filter((item) => item.category === category);
 
   return (
     <main className="content">

@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import HomePage from './pages/HomePage'
-import CategoryPage from './pages/CategoryPage'
-import PricePage from './pages/PricePage'
-import SortPage from './pages/SortPage'
-import { getProducts, purchaseProducts } from './apis/products'
-import './App.css'
-import AdminPage from './pages/AdminPage'
-
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import CategoryPage from "./pages/CategoryPage";
+import PricePage from "./pages/PricePage";
+import SortPage from "./pages/SortPage";
+import { getProducts, purchaseProducts } from "./apis/products";
+import "./App.css";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -69,16 +68,46 @@ function App() {
         </main>
       ) : (
         <Routes>
-          <Route path="/" element={<HomePage products={products} cart={cart} onAddToCart={addToCart} />} />
-          <Route path="/category" element={<CategoryPage products={products} cart={cart} onAddToCart={addToCart} />} />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                products={products}
+                cart={cart}
+                onAddToCart={addToCart}
+              />
+            }
+          />
+          <Route
+            path="/category"
+            element={
+              <CategoryPage
+                products={products}
+                cart={cart}
+                onAddToCart={addToCart}
+              />
+            }
+          />
           <Route path="/price" element={<PricePage />} />
-          <Route path="/sort" element={<SortPage products={products} cart={cart} onAddToCart={addToCart} />} />
-          <Route path="/admin" element={<AdminPage setProducts={setProducts} />} />
+          <Route
+            path="/sort"
+            element={
+              <SortPage
+                products={products}
+                cart={cart}
+                onAddToCart={addToCart}
+              />
+            }
+          />
+          <Route
+            path="/admin"
+            element={<AdminPage setProducts={setProducts} />}
+          />
         </Routes>
       )}
       <Footer onPurchase={handlePurchase} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
