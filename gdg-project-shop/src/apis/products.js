@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://192.168.237.95:8080";
 
 export const getProducts = async () => {
   const res = await fetch(`${BASE_URL}/products`);
@@ -61,6 +61,16 @@ export const purchaseProducts = async (cart) => {
 
   if (!res.ok) {
     throw new Error("구매에 실패했습니다.");
+  }
+
+  return res.json();
+};
+
+export const searchProduct = async (itemName) => {
+  const res = await fetch(`${BASE_URL}/products?itemName=${encodeURIComponent(itemName)}`);
+
+  if (!res.ok) {
+    throw new Error("상품을 찾지 못했습니다.");
   }
 
   return res.json();
