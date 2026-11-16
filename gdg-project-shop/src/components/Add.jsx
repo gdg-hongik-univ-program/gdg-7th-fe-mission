@@ -15,8 +15,7 @@ function Add() {
             category: category
         }
         console.log("상품 등록: ", product);
-        const data = await admin_products(product);
-        console.log(data);
+        await admin_products(product);
     }
     return (
         <div className="add-view">

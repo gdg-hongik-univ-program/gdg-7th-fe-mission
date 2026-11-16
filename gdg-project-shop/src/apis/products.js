@@ -9,26 +9,31 @@ export async function products() {
 }
 
 export async function search(text) {
+    if (dev) return console.log(text);
     const response = await axios.get(`${BASE_URL}/products?itemName=${text}`);
     return response.data;
 }
 
 export async function admin_products(body) {
+    if (dev) return console.log(body);
     const response = await axios.post(`${BASE_URL}/admin/products`, body);
     return response.data;
 }
 
 export async function admin_products_stock(body) {
+    if (dev) return console.log(body);
     const response = await axios.patch(`${BASE_URL}/admin/products/stock`, body);
     return response.data;
 }
 
 export async function admin_delete(body) {
+    if (dev) return console.log(body);
     const response = await axios.delete(`${BASE_URL}/admin/products`, { data: body });
     return response.data;
 }
 
 export async function buy(body) {
+    if (dev) return console.log(body);
     const response = await axios.post(`${BASE_URL}/products/purchase`, body);
     return response.data;
 }
