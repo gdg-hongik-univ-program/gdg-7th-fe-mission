@@ -1,5 +1,10 @@
 import { useState } from "react";
-
+import { getProductByName } from "../apis/products";
+import {
+  registerProduct,
+  addProductStock,
+  deleteProduct,
+} from "../apis/admin";
 function ManagementPage() {
   // 1) 입력값 state
   const [product, setProduct] = useState({
@@ -10,9 +15,12 @@ function ManagementPage() {
   });
   const [stock, setStock] = useState({ itemName: "", quantity: 0 });
   const [removeName, setRemoveName] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchedProduct, setSearchedProduct] = useState(null);
+  const [searchError, setSearchError] = useState("");
 
   // 2) 핸들러: 객체를 만들어 콘솔에 출력
-  const handleRegister = (e) => {
+  /*const handleRegister = (e) => {
     e.preventDefault();
     const newProduct = {
       itemName: product.itemName,
@@ -21,26 +29,170 @@ function ManagementPage() {
       category: product.category,
     };
     console.log("[상품 등록] 상품 등록을 실행합니다.", newProduct);
+  };*/
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const newProduct = {
+      itemName: product.itemName,
+      price: Number(product.price),
+      quantity: Number(product.quantity),
+      category: product.category,
+    };
+
+    try {
+      const result = await registerProduct(newProduct);
+
+      console.log("상품 등록 성공:", result);
+      alert(`${result.itemName} 상품이 등록되었습니다.`);
+
+      setProduct({
+        itemName: "",
+        price: 0,
+        quantity: 0,
+        category: "",
+      });
+    } catch (error) {
+      console.error("상품 등록 실패:", error);
+      alert(error.message);
+    }
   };
 
-  const handleAddStock = (e) => {
+  /*const handleAddStock = (e) => {
     e.preventDefault();
     const stockData = {
       itemName: stock.itemName,
       quantity: Number(stock.quantity),
     };
     console.log("[재고 추가] 재고 추가를 실행합니다.", stockData);
+  };*/
+
+  const handleAddStock = async (e) => {
+    e.preventDefault();
+
+    const stockData = {
+      itemName: stock.itemName,
+      quantity: Number(stock.quantity),
+    };
+
+    if (!stockData.itemName.trim()) {
+      alert("상품명을 입력해주세요.");
+      return;
+    }
+
+    if (!Number.isInteger(stockData.quantity) || stockData.quantity <= 0) {
+      alert("추가 수량은 1 이상의 정수여야 합니다.");
+      return;
+    }
+
+    try {
+      const result = await addProductStock(stockData);
+
+      console.log("재고 추가 성공:", result);
+
+      alert(
+        `${result.itemName}의 재고가 ${result.quantity}개로 변경되었습니다.`
+      );
+
+      setStock({
+        itemName: "",
+        quantity: 0,
+      });
+    } catch (error) {
+      console.error("재고 추가 실패:", error);
+      alert(error.message);
+    }
   };
 
-  const handleRemove = (e) => {
+  /*const handleRemove = (e) => {
     e.preventDefault();
     const removeData = { itemName: removeName };
     console.log("[상품 삭제] 상품 삭제를 실행합니다.", removeData);
+  };*/
+
+  const handleRemove = async (e) => {
+    e.preventDefault();
+
+    if (!removeName.trim()) {
+      alert("삭제할 상품명을 입력해주세요.");
+      return;
+    }
+
+    try {
+      const result = await deleteProduct(removeName.trim());
+
+      console.log("상품 삭제 성공:", result);
+
+      alert(`${removeName} 상품이 삭제되었습니다.`);
+
+      setRemoveName("");
+    } catch (error) {
+      console.error("상품 삭제 실패:", error);
+      alert(error.message);
+    }
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    if (!searchName.trim()) {
+      setSearchError("상품명을 입력해주세요.");
+      return;
+    }
+
+    try {
+      setSearchError("");
+      setSearchedProduct(null);
+
+      const data = await getProductByName(searchName);
+
+      setSearchedProduct(data);
+    } catch (error) {
+      setSearchError(error.message);
+    }
   };
 
   // 3) UI
   return (
     <main className="content management-page">
+
+      {/* 상품 검색 */}
+      <section className="management-section">
+        <h2>상품 검색</h2>
+
+        <form className="management-card" onSubmit={handleSearch}>
+          <div className="management-grid">
+            <label className="management-field">
+              <span>상품명</span>
+              <input
+                type="text"
+                placeholder="검색할 상품명 입력..."
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+              />
+            </label>
+          </div>
+
+          <div className="management-footer end">
+            <button type="submit" className="management-btn primary">
+              검색
+            </button>
+          </div>
+
+          {searchError && <p>{searchError}</p>}
+
+          {searchedProduct && (
+            <div>
+              <p>상품명: {searchedProduct.itemName}</p>
+              <p>가격: {searchedProduct.price}</p>
+              <p>수량: {searchedProduct.quantity}</p>
+              <p>카테고리: {searchedProduct.category}</p>
+            </div>
+          )}
+        </form>
+      </section>
+
       {/* 상품 등록 */}
       <section className="management-section">
         <h2>상품 등록</h2>
@@ -79,18 +231,26 @@ function ManagementPage() {
                 }
               />
             </label>
+
             <label className="management-field">
               <span>카테고리</span>
-              <input
-                type="text"
-                placeholder="카테고리 선택"
+
+              <select
                 value={product.category}
                 onChange={(e) =>
                   setProduct({ ...product, category: e.target.value })
                 }
-              />
+                required
+              >
+                <option value="" disabled>카테고리 선택</option>
+                <option value="의류">의류</option>
+                <option value="전자기기">전자기기</option>
+                <option value="화장품">화장품</option>
+                <option value="식품">식품</option>
+              </select>
             </label>
           </div>
+
           <div className="management-footer">
             <p className="management-note">
               * 추가 기능을 카테고리로 설정한 경우에만 카테고리를 이용해주세요.
@@ -99,6 +259,7 @@ function ManagementPage() {
               등록
             </button>
           </div>
+
         </form>
       </section>
 
@@ -122,7 +283,7 @@ function ManagementPage() {
               <span>수량</span>
               <input
                 type="number"
-                min="0"
+                min="1"
                 value={stock.quantity}
                 onChange={(e) =>
                   setStock({ ...stock, quantity: e.target.value })
@@ -150,6 +311,7 @@ function ManagementPage() {
                 placeholder="상품명 입력..."
                 value={removeName}
                 onChange={(e) => setRemoveName(e.target.value)}
+                required
               />
             </label>
           </div>
