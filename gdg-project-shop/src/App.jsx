@@ -73,9 +73,11 @@ function App() {
           <Route path="/category" element={<CategoryPage products={products} cart={cart} onAddToCart={addToCart} />} />
           <Route path="/price" element={<PricePage />} />
           <Route path="/sort" element={<SortPage products={products} cart={cart} onAddToCart={addToCart} />} />
-          <Route path="/admin" element={<AdminPage setProducts={setProducts} />} />        </Routes>
+          <Route path="/admin" element={<AdminPage setProducts={setProducts} />} />
+        </Routes>
       )}
-      <Footer onPurchase={handlePurchase} />    </>
+      <Footer onPurchase={handlePurchase} />
+    </>
   )
 }
 
