@@ -5,16 +5,8 @@ import { useState } from 'react';
 function Category({ itemData, ...props }) {
     const [category, setCategory] = useState("전체");
 
-    const categoryNames = ["전체", ...new Set(itemData.map(item => item.category))];
-    const categories = categoryNames.map(category => ({
-        name: category,
-        value: (category=="전체") ? itemData : itemData.filter(i => i.category==category)
-    }));
-
-    console.log(categories);
-
-    const options = categories.map(i => (
-        <option key={i.name} value={i.name}>{i.name}</option>
+    const options = itemData.map(i => (
+        <option key={i.itemName} value={i.category}>{i.category}</option>
     ));
 
     const items = data => data.map(i => (
@@ -26,7 +18,7 @@ function Category({ itemData, ...props }) {
             <select value={category} onChange={e => setCategory(e.target.value)} className="m-4 border">
                 {options}
             </select>
-            <div className="category flex flex-col gap-8 items-center">{items(categories.find(n => n.name==category)?.value)}</div>
+            <div className="category flex flex-col gap-8 items-center">{items((category=="전체") ? itemData : itemData.filter(i => i.category==category))}</div>
         </div>
     )
 }

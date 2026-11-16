@@ -20,7 +20,7 @@
 
   .card {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     color: #000000;
     border-style: solid;
@@ -44,6 +44,10 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  .admin-view .card {
+    flex-direction: column;
   }
 
   .admin-view .card input {
