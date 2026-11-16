@@ -5,8 +5,8 @@ function Card(props) {
     const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
-        if (props.cart.find(item => item.id == props.key)) {
-            console.log(props.cart.find(item => item.id == props.key))
+        if (props.cart.find(item => item.id == props.id)) {
+            console.log(props.cart.find(item => item.id == props.id))
             setIsDisabled(true);
         }
         return () => setIsDisabled(false);
@@ -21,12 +21,12 @@ function Card(props) {
     }
     const handleClick = () => {
         if (count) {
-            props.addCart({id: props.key, count: count});
+            props.addCart({id: props.id, count: count});
             setIsDisabled(true);
         }
     }
     return (
-        <div className="card flex flex-row text-black border border-gray-300 rounded-lg p-8 gap-4 items-center basis-28 w-full max-w-140 justify-between">
+        <div className="card">
             <div className="details flex flex-col items-start gap-2">
                 <h6>{props.name}</h6>
                 <div className="flex gap-4">
@@ -34,8 +34,8 @@ function Card(props) {
                 </div>
             </div>
             <label className="cart flex gap-2 min-h-10">
-                <input type="number" value={count} onChange={change} min={1} max={props.quant} className="max-w-36 rounded-md p-2" placeholder="개수 입력..."></input>
-                <button onClick={handleClick} className="cart-button text-white bg-blue-700 px-4 rounded-md disabled:bg-gray-500" disabled={isDisabled}>장바구니</button>
+                <input type="number" value={count} onChange={change} min={1} max={props.quant} className="p-2" placeholder="개수 입력..."></input>
+                <button onClick={handleClick} className="cart-button disabled:bg-gray-500" disabled={isDisabled}>장바구니</button>
             </label>
         </div>
     );

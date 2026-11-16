@@ -5,20 +5,20 @@ import { useState } from 'react';
 function Category({ itemData, ...props }) {
     const [category, setCategory] = useState("전체");
 
-    const categories = [
-        {name: "전체", value: itemData},
-        {name: "의류", value: itemData.filter(i => i.category=="의류")}, 
-        {name: "전자기기", value: itemData.filter(i => i.category=="전자기기")},
-        {name: "화장품", value: itemData.filter(i => i.category=="화장품")},
-        {name: "식품", value: itemData.filter(i => i.category=="식품")}
-    ];
+    const categoryNames = ["전체", ...new Set(itemData.map(item => item.category))];
+    const categories = categoryNames.map(category => ({
+        name: category,
+        value: (category=="전체") ? itemData : itemData.filter(i => i.category==category)
+    }));
+
+    console.log(categories);
 
     const options = categories.map(i => (
         <option key={i.name} value={i.name}>{i.name}</option>
     ));
 
     const items = data => data.map(i => (
-        <Card addCart={props.addCart} cart={props.cart} key={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
+        <Card addCart={props.addCart} cart={props.cart} key={i.id} id={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
     ));
 
     return (

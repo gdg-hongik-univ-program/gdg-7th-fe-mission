@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import { Routes, Route } from "react-router";
 import Category from './pages/Category';
 import Sort from './pages/Sort';
+import Admin from './pages/Admin';
 import { products } from './apis/products.js';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   const [loading, setLoading] = useState("pending");
 
     useEffect(() => {
-      const fetchProducts = async () => {
+      (async () => {
         try {
           setLoading("loading");
           const data = await products();
@@ -25,9 +26,8 @@ function App() {
           setLoading("rejected");
           console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
         }
-      };
+      })();
 
-        fetchProducts();
     }, []);
 
   console.log(cart);
@@ -45,9 +45,10 @@ function App() {
           {loading=="pending" && "Wait..."}
           {loading=="fulfilled" && (
             <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/category" element={<Category cart={cart} addCart={addCart} itemData={itemData} />}></Route>
-              <Route path="/sort-items" element={<Sort cart={cart} addCart={addCart} itemData={itemData} />}></Route>
+              <Route path="/" element={<Home />} />
+              <Route path="/category" element={<Category cart={cart} addCart={addCart} itemData={itemData} />} />
+              <Route path="/sort-items" element={<Sort cart={cart} addCart={addCart} itemData={itemData} />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           )}
       </div>
