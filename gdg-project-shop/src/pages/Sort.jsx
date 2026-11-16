@@ -1,8 +1,8 @@
 import Card from '../components/Card';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 // import { itemData } from '../data/mockData.js';
 
-function Sort({itemData, ...props }) {
+function Sort({ cart, addCart, itemData }) {
     const [sortBy, setSortBy] = useState("name");
 
     const sorted = (sortBy=="name") ? itemData.sort((a, b) => {
@@ -14,7 +14,7 @@ function Sort({itemData, ...props }) {
     });
 
     const items = data => data.map(i => (
-        <Card addCart={props.addCart} cart={props.cart} key={i.id} id={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
+        <Card addCart={addCart} cart={cart} key={i.id} id={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
     ));
 
     return (

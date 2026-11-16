@@ -32,7 +32,7 @@ export async function admin_delete(body) {
     return response.data;
 }
 
-export async function buy(body) {
+export async function purchase(body) {
     if (dev) return console.log(body);
     const response = await axios.post(`${BASE_URL}/products/purchase`, body);
     return response.data;

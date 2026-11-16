@@ -2,7 +2,7 @@ import Card from '../components/Card';
 import { useState } from 'react';
 // import { itemData } from '../data/mockData.js';
 
-function Category({ itemData, ...props }) {
+function Category({ cart, addCart, itemData }) {
     const [category, setCategory] = useState("전체");
     const categories = ["전체", ...new Set(itemData.map(item => item.category))];
 
@@ -11,7 +11,7 @@ function Category({ itemData, ...props }) {
     ));
 
     const items = data => data.map(i => (
-        <Card addCart={props.addCart} cart={props.cart} key={i.id} id={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
+        <Card cart={cart} addCart={addCart} key={i.id} id={i.id} name={i.itemName} price={i.price} quant={i.quantity} />
     ));
 
     return (
