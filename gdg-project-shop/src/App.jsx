@@ -20,11 +20,10 @@ function App() {
           const data = await products();
           console.log(data);
           setItemData(data);
+          setLoading("fulfilled");
         } catch (error) {
           setLoading("rejected");
           console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
-        } finally {
-          setLoading("settled");
         }
       };
 
@@ -41,12 +40,16 @@ function App() {
     <>
       <Navbar />
       <div className="p-8">
-          {loading=="loading" ? "Loading..." : loading=="rejected" ? "Error!" : loading=="pending" ? "Wait..." : ""}
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/category" element={<Category cart={cart} addCart={addCart} itemData={itemData} />}></Route>
-          <Route path="/sort-items" element={<Sort cart={cart} addCart={addCart} itemData={itemData} />}></Route>
-        </Routes>
+          {loading=="loading" && "Loading..." }
+          {loading=="rejected" && "Error!" }
+          {loading=="pending" && "Wait..."}
+          {loading=="fulfilled" && (
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/category" element={<Category cart={cart} addCart={addCart} itemData={itemData} />}></Route>
+              <Route path="/sort-items" element={<Sort cart={cart} addCart={addCart} itemData={itemData} />}></Route>
+            </Routes>
+          )}
       </div>
       <Footer cart={cart} />
     </>
