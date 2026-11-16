@@ -4,7 +4,7 @@ function Restock() {
     const [name, setName] = useState("");
     const [quantity, setQuantity] = useState(0);
     return (
-        <div className="add-view flex flex-col gap-2 items-center">
+        <div className="restock-view">
             <h4 className="p-2 w-full max-w-140">재고 추가</h4>
             <div className="card">
                 <div className="details">

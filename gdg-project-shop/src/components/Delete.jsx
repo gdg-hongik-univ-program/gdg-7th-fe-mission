@@ -3,7 +3,7 @@ import { useState } from 'react';
 function Delete() {
     const [name, setName] = useState("");
     return (
-        <div className="add-view">
+        <div className="delete-view">
             <h4 className="p-2 w-full max-w-140">상품 삭제</h4>
             <div className="card">
                 <div className="details">
