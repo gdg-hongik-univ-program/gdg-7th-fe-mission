@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -10,28 +9,11 @@ import { getProducts, purchaseProducts } from "./apis/products";
 import "./App.css";
 import AdminPage from "./pages/AdminPage";
 import { useCart } from "./stores/cartContext";
+import useProducts from "./hooks/useProducts";
 
 function App() {
   const { cart, clearCart } = useCart();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
+  const { products, setProducts, loading, error } = useProducts();
   const handlePurchase = async () => {
     if (cart.length === 0) {
       alert("장바구니가 비어 있습니다.");
