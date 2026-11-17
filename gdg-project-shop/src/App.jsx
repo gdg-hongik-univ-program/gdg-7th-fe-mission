@@ -11,7 +11,7 @@ import Price from './pages/Price.jsx';
 import Sort from './pages/Sort.jsx';
 import Category from './pages/Category.jsx';
 import NotFound from './pages/NotFound.jsx';
-import Admin from './pages/Admin.jsx'
+import Admin from './pages/Admin.jsx';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -19,21 +19,46 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const data = await getProducts();
-        setItems(data);
-      } catch (err) {
-        setError(err.message || '상품 데이터를 불러오지 못했습니다.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  // useEffect 바깥에 선언해야 Admin에도 전달 가능
+  // 1. 관리자 페이지(Admin)에서 재조회할 때 호출할 함수
+  const fetchProducts = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      const data = await getProducts();
+      setItems(data);
+    } catch (err) {
+      setError(err.message || '상품 데이터를 불러오지 못했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetchProducts();
+  // 2. 최초 마운트 시 데이터 로드 (비동기 콜백 내부에서만 setState 호출)
+  useEffect(() => {
+    let ignore = false;
+
+    getProducts()
+      .then((data) => {
+        if (!ignore) {
+          setItems(data);
+          setError(null);
+        }
+      })
+      .catch((err) => {
+        if (!ignore) {
+          setError(err.message || '상품 데이터를 불러오지 못했습니다.');
+        }
+      })
+      .finally(() => {
+        if (!ignore) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const addToCart = (id, count) => {
@@ -122,7 +147,12 @@ function App() {
               />
             }
           />
-          <Route path="/admin" element={<Admin />} />
+
+          <Route
+            path="/admin"
+            element={<Admin onRefresh={fetchProducts} />}
+          />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}

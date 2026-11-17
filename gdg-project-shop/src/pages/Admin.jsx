@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { createProduct, addStock, deleteProduct } from '../apis/products.js';
 
-function Admin() {
+function Admin({ onRefresh }) {
   // 1. 상품 등록 상태
   const [regName, setRegName] = useState('');
   const [regPrice, setRegPrice] = useState('0');
@@ -14,15 +15,14 @@ function Admin() {
   // 3. 상품 삭제 상태
   const [delName, setDelName] = useState('');
 
-  // 상품 등록 핸들러
-  const handleRegister = (e) => {
+  // 1. 상품 등록 핸들러
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     const trimmedName = regName.trim();
     const priceNum = Number(regPrice);
     const quantityNum = Number(regQuantity);
 
-    // 필수 입력값 및 가격/수량 검증
     if (!trimmedName || !regCategory) {
       alert('상품명과 카테고리를 모두 입력해 주세요.');
       return;
@@ -41,25 +41,31 @@ function Admin() {
       return;
     }
 
-    const newProduct = {
+    const data = {
       itemName: trimmedName,
       price: priceNum,
       quantity: quantityNum,
       category: regCategory,
     };
 
-    console.log('상품이 등록되었습니다.');
-    console.log(newProduct);
+    try {
+      const result = await createProduct(data);
+      console.log('상품이 등록되었습니다.', result);
+      await onRefresh();
+      alert('상품이 등록되었습니다.');
 
-    // 입력창 초기화
-    setRegName('');
-    setRegPrice('0');
-    setRegQuantity('0');
-    setRegCategory('');
+      setRegName('');
+      setRegPrice('0');
+      setRegQuantity('0');
+      setRegCategory('');
+    } catch (error) {
+      console.error(error);
+      alert(error.message || '상품 등록 중 오류가 발생했습니다.');
+    }
   };
 
-  // 재고 추가 핸들러
-  const handleAddStock = (e) => {
+  // 2. 재고 추가 핸들러
+  const handleAddStock = async (e) => {
     e.preventDefault();
 
     const trimmedName = addName.trim();
@@ -79,20 +85,25 @@ function Admin() {
       return;
     }
 
-    const stockData = {
-      itemName: trimmedName,
-      quantity: quantityNum,
-    };
+    try {
+      const result = await addStock({
+        itemName: trimmedName,
+        quantity: quantityNum,
+      });
+      console.log('재고가 추가되었습니다.', result);
+      await onRefresh();
+      alert('재고가 추가되었습니다.');
 
-    console.log('재고가 추가되었습니다.');
-    console.log(stockData);
-
-    setAddName('');
-    setAddQuantity('0');
+      setAddName('');
+      setAddQuantity('0');
+    } catch (error) {
+      console.error(error);
+      alert(error.message || '재고 추가 중 오류가 발생했습니다.');
+    }
   };
 
-  // 상품 삭제 핸들러
-  const handleDelete = (e) => {
+  // 3. 상품 삭제 핸들러
+  const handleDelete = async (e) => {
     e.preventDefault();
 
     const trimmedName = delName.trim();
@@ -102,14 +113,19 @@ function Admin() {
       return;
     }
 
-    const deleteData = {
-      itemName: trimmedName,
-    };
+    try {
+      const result = await deleteProduct({
+        itemName: trimmedName,
+      });
+      console.log('상품이 삭제되었습니다.', result);
+      await onRefresh();
+      alert('상품이 삭제되었습니다.');
 
-    console.log('상품이 삭제되었습니다.');
-    console.log(deleteData);
-
-    setDelName('');
+      setDelName('');
+    } catch (error) {
+      console.error(error);
+      alert(error.message || '상품 삭제 중 오류가 발생했습니다.');
+    }
   };
 
   return (
