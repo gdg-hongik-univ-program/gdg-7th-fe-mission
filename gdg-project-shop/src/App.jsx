@@ -9,9 +9,10 @@ import SortPage from "./pages/SortPage";
 import { getProducts, purchaseProducts } from "./apis/products";
 import "./App.css";
 import AdminPage from "./pages/AdminPage";
+import { useCart } from "./stores/cartContext";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const { cart, clearCart } = useCart();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,10 +32,6 @@ function App() {
     fetchProducts();
   }, []);
 
-  const addToCart = (id, count) => {
-    setCart([...cart, { id, count }]);
-  };
-
   const handlePurchase = async () => {
     if (cart.length === 0) {
       alert("장바구니가 비어 있습니다.");
@@ -46,7 +43,7 @@ function App() {
       console.log("구매 완료", result);
       alert(`총 ${result.totalPrice}원 구매가 완료되었습니다.`);
 
-      setCart([]);
+      clearCart();
 
       const data = await getProducts();
       setProducts(data);
@@ -68,37 +65,13 @@ function App() {
         </main>
       ) : (
         <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                products={products}
-                cart={cart}
-                onAddToCart={addToCart}
-              />
-            }
-          />
+          <Route path="/" element={<HomePage products={products} />} />
           <Route
             path="/category"
-            element={
-              <CategoryPage
-                products={products}
-                cart={cart}
-                onAddToCart={addToCart}
-              />
-            }
+            element={<CategoryPage products={products} />}
           />
           <Route path="/price" element={<PricePage />} />
-          <Route
-            path="/sort"
-            element={
-              <SortPage
-                products={products}
-                cart={cart}
-                onAddToCart={addToCart}
-              />
-            }
-          />
+          <Route path="/sort" element={<SortPage products={products} />} />
           <Route
             path="/admin"
             element={<AdminPage setProducts={setProducts} />}

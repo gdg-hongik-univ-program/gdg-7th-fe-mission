@@ -2,7 +2,7 @@ import { useState } from "react";
 import Item from "../components/Item";
 import { searchProduct } from "../apis/products";
 
-function HomePage({ products, cart, onAddToCart }) {
+function HomePage({ products }) {
   const [keyword, setKeyword] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [searchError, setSearchError] = useState("");
@@ -47,14 +47,7 @@ function HomePage({ products, cart, onAddToCart }) {
         {searchError ? (
           <p className="text-center text-gray-500">{searchError}</p>
         ) : (
-          list.map((item) => (
-            <Item
-              key={item.id}
-              item={item}
-              isInCart={cart.some((c) => c.id === item.id)}
-              onAddToCart={onAddToCart}
-            />
-          ))
+          list.map((item) => <Item key={item.id} item={item} />)
         )}
       </div>
     </main>

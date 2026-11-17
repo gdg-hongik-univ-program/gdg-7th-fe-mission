@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Item from "../components/Item";
 
-function SortPage({ products, cart, onAddToCart }) {
+function SortPage({ products }) {
   const [sortKey, setSortKey] = useState("");
 
   const sortedItems = [...products].sort((a, b) => {
@@ -24,12 +24,7 @@ function SortPage({ products, cart, onAddToCart }) {
         </select>
 
         {sortedItems.map((item) => (
-          <Item
-            key={item.id}
-            item={item}
-            isInCart={cart.some((c) => c.id === item.id)}
-            onAddToCart={onAddToCart}
-          />
+          <Item key={item.id} item={item} />
         ))}
       </div>
     </main>

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useCart } from "../stores/cartContext";
 
-function Item({ item, isInCart, onAddToCart }) {
+function Item({ item }) {
+  const { addToCart, isInCart } = useCart();
   const [count, setCount] = useState("");
 
   const handleChange = (e) => {
@@ -19,7 +21,7 @@ function Item({ item, isInCart, onAddToCart }) {
 
   const handleClick = () => {
     if (count === "") return;
-    onAddToCart(item.id, count);
+    addToCart(item.id, count);
   };
 
   return (
@@ -44,8 +46,8 @@ function Item({ item, isInCart, onAddToCart }) {
         />
         <button
           onClick={handleClick}
-          disabled={isInCart}
-          className={`w-28 rounded-md py-2 text-sm text-white ${isInCart ? "bg-gray-400" : "bg-blue-500"}`}
+          disabled={isInCart(item.id)}
+          className={`w-28 rounded-md py-2 text-sm text-white ${isInCart(item.id) ? "bg-gray-400" : "bg-blue-500"}`}
         >
           장바구니
         </button>

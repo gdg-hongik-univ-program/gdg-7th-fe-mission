@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Item from "../components/Item";
 
-function CategoryPage({ products, cart, onAddToCart }) {
+function CategoryPage({ products }) {
   const [category, setCategory] = useState("");
 
   const filteredItems =
@@ -25,12 +25,7 @@ function CategoryPage({ products, cart, onAddToCart }) {
         </select>
 
         {filteredItems.map((item) => (
-          <Item
-            key={item.id}
-            item={item}
-            isInCart={cart.some((c) => c.id === item.id)}
-            onAddToCart={onAddToCart}
-          />
+          <Item key={item.id} item={item} />
         ))}
       </div>
     </main>
