@@ -21,3 +21,10 @@ React의 Hook 기능을 재사용 가능한 로직으로 캡슐화한 함수
 -----------------
 # 일반함수와 Custom Hook의 차이
 - 일반 함수 안에서는 hook 사용이 불가능하지만 Custom Hook 안에서는 사용이 가능하다.
+-------------------
+# 내 코드에서 리팩토링 하거나 custom hook 사용해보기
+지금 나의 쇼핑몰 코드에서는 Content, CategoryPage, PricePage, SortPage가 모두 똑같은 코드를 사용하고 있다. 
+```
+<ProductList items={filteredItems} cart={cart} onAddToCart={onAddToCart} />
+```
+이렇게 고친다면 Item에 props를 하나 추가하고 싶을 때, 4개 부분을 고치는게 아니라 1개 부분만 고치면 된다.
