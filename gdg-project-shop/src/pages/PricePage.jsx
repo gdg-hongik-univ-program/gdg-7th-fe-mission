@@ -42,9 +42,7 @@ function PricePage({ products, cart, onAddToCart }) {
         />
       </div>
 
-      {isInvalid && (
-        <p className="text-red-500">최소 가격은 최대 가격보다 클 수 없습니다.</p>
-      )}
+      {isInvalid && <p className="text-red-500">최소 가격은 최대 가격보다 클 수 없습니다.</p>}
 
       {!isInvalid && filteredItems.length === 0 && (
         <p className="text-gray-500">해당 가격의 상품이 없습니다.</p>

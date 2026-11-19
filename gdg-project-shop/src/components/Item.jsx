@@ -36,9 +36,7 @@ function Item({ id, itemName, price, quantity, cart, onAddToCart }) {
         <p className="font-bold">{itemName}</p>
         <p className="mt-3">
           <span>{price} 원</span>
-          <span className="ml-3 text-xs text-gray-500">
-            남은 수량: {quantity}개
-          </span>
+          <span className="ml-3 text-xs text-gray-500">남은 수량: {quantity}개</span>
         </p>
       </div>
 

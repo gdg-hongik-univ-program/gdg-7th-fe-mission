@@ -16,21 +16,19 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
- async function loadProducts() {
-   try {
-     const data = await getProducts();
-     setProducts(data);
-   } catch (err) {
-     console.error(err);
-     setError("상품을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.");
-   } finally {
-     setIsLoading(false);
-   }
- }
+function loadProducts() {
+  return getProducts()
+    .then((data) => setProducts(data))
+    .catch((err) => {
+      console.error(err);
+      setError("상품을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.");
+    })
+    .finally(() => setIsLoading(false));
+}
 
- useEffect(() => {
-   loadProducts();
- }, []);
+  useEffect(() => {
+    loadProducts();
+  }, []);
 
   function addToCart(newItem) {
     setCart([...cart, newItem]);
@@ -40,23 +38,33 @@ function App() {
     <>
       <Navbar />
 
-    {isLoading && (
-      <div className="p-10 text-center text-black">
-        <p>Loading...</p>
-        <p>잠시만 기다려 주세요</p>
-      </div>
-    )}
-
-      {!isLoading && error && (
-        <p className="p-10 text-center text-red-500">{error}</p>
+      {isLoading && (
+        <div className="p-10 text-center text-black">
+          <p>Loading...</p>
+          <p>잠시만 기다려 주세요</p>
+        </div>
       )}
+
+      {!isLoading && error && <p className="p-10 text-center text-red-500">{error}</p>}
 
       {!isLoading && !error && (
         <Routes>
-          <Route path="/" element={<Content products={products} cart={cart} onAddToCart={addToCart} />} />
-          <Route path="/category" element={<CategoryPage products={products} cart={cart} onAddToCart={addToCart} />} />
-          <Route path="/price" element={<PricePage products={products} cart={cart} onAddToCart={addToCart} />} />
-          <Route path="/sort" element={<SortPage products={products} cart={cart} onAddToCart={addToCart} />} />
+          <Route
+            path="/"
+            element={<Content products={products} cart={cart} onAddToCart={addToCart} />}
+          />
+          <Route
+            path="/category"
+            element={<CategoryPage products={products} cart={cart} onAddToCart={addToCart} />}
+          />
+          <Route
+            path="/price"
+            element={<PricePage products={products} cart={cart} onAddToCart={addToCart} />}
+          />
+          <Route
+            path="/sort"
+            element={<SortPage products={products} cart={cart} onAddToCart={addToCart} />}
+          />
           <Route path="/admin" element={<AdminPage onProductsChange={loadProducts} />} />
         </Routes>
       )}

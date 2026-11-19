@@ -1,13 +1,11 @@
 import { useState } from "react";
 import Item from "./Item.jsx";
 
-function Content({products, cart, onAddToCart }) {
+function Content({ products, cart, onAddToCart }) {
   const [keyword, setKeyword] = useState("");
   const [searchWord, setSearchWord] = useState("");
 
-  const filteredItems = products.filter((item) =>
-    item.itemName.includes(searchWord.trim())
-  );
+  const filteredItems = products.filter((item) => item.itemName.includes(searchWord.trim()));
 
   return (
     <main className="content">

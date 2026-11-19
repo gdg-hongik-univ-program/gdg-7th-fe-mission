@@ -1,4 +1,3 @@
-
 [
   { "id": 1, "itemName": "원피스", "price": 500, "quantity": 13, "category": "의류" },
   { "id": 2, "itemName": "청바지", "price": 200, "quantity": 7, "category": "의류" },
