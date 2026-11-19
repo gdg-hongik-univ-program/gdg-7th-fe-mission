@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createProduct, addStock, deleteProduct } from "../apis/products";
 
 const categories = ["의류", "전자기기", "화장품", "식품"];
 const inputClass =
@@ -19,7 +20,7 @@ function Field({ label, children }) {
   );
 }
 
-function AdminPage() {
+function AdminPage({ onProductsChange }) {
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -30,7 +31,7 @@ function AdminPage() {
 
   const [deleteName, setDeleteName] = useState("");
 
-  function handleRegister() {
+  async function handleRegister() {
     if (!itemName.trim() || !price || !quantity || !category) {
       alert("상품명, 가격, 수량, 카테고리를 모두 입력해 주세요.");
       return;
@@ -50,15 +51,24 @@ function AdminPage() {
       quantity: Number(quantity),
       category,
     };
-    console.log("상품이 등록되었습니다.", newItem);
 
-    setItemName("");
-    setPrice("");
-    setQuantity("");
-    setCategory("");
+    try {
+      const result = await createProduct(newItem);
+      console.log("상품이 등록되었습니다.", result);
+      await onProductsChange();
+      alert("상품이 등록되었습니다.");
+
+      setItemName("");
+      setPrice("");
+      setQuantity("");
+      setCategory("");
+    } catch (error) {
+      console.error(error);
+      alert("상품 등록에 실패했습니다.");
+    }
   }
 
-  function handleAddStock() {
+  async function handleAddStock() {
     if (!stockName.trim() || !stockQuantity) {
       alert("상품명과 추가할 수량을 모두 입력해 주세요.");
       return;
@@ -69,26 +79,44 @@ function AdminPage() {
     }
 
     const stock = { itemName: stockName.trim(), quantity: Number(stockQuantity) };
-    console.log("재고가 추가되었습니다.", stock);
 
-    setStockName("");
-    setStockQuantity("");
+    try {
+      const result = await addStock(stock);
+      console.log("재고가 추가되었습니다.", result);
+      await onProductsChange();
+      alert("재고가 추가되었습니다.");
+
+      setStockName("");
+      setStockQuantity("");
+    } catch (error) {
+      console.error(error);
+      alert("재고 추가에 실패했습니다. 상품명을 확인해 주세요.");
+    }
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!deleteName.trim()) {
       alert("삭제할 상품명을 입력해 주세요.");
       return;
     }
 
     const target = { itemName: deleteName.trim() };
-    console.log("상품이 삭제되었습니다.", target);
 
-    setDeleteName("");
+    try {
+      const result = await deleteProduct(target);
+      console.log("상품이 삭제되었습니다.", result);
+      await onProductsChange();
+      alert("상품이 삭제되었습니다.");
+
+      setDeleteName("");
+    } catch (error) {
+      console.error(error);
+      alert("상품 삭제에 실패했습니다. 상품명을 확인해 주세요.");
+    }
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-[800px] flex-col gap-12 px-4 py-6 text-left text-[15px] text-gray-900">
+    <div className="mx-auto flex w-full max-w-[650px] flex-col gap-12 px-4 py-6 text-left text-[15px] text-gray-900">
       <section className="flex flex-col gap-6">
         <h3 className="text-[18px] font-bold">상품 등록</h3>
         <div className={boxClass}>
@@ -135,7 +163,7 @@ function AdminPage() {
             </Field>
           </div>
 
-            <div className="mt-5 flex items-center justify-between gap-4">
+          <div className="mt-5 flex items-center justify-between gap-4">
             <p className="whitespace-nowrap text-xs text-gray-500">
               * 추가 기능을 카테고리로 설정한 경우에만 카테고리를 이용해주세요.
             </p>
