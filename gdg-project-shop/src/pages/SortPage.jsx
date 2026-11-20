@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import ItemList from "../components/ItemList";
-import { getProducts } from "../apis/products";
 import LoadingMessage from "../messages/LoadingMessage";
 import ErrorMessage from "../messages/ErrorMessage";
+import {useProducts} from "../../hooks/useProducts";
+import { useState } from "react";
 
 const sortOptions = [
   { value: "name", label: "이름(가나다순)" },
@@ -11,33 +11,10 @@ const sortOptions = [
 ];
 
 function SortPage() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("");
+  const { items, loading, error } = useProducts();
 
-  useEffect(() => {
-    let ignore = false;
-
-    const loadProducts = async () => {
-      try {
-        setLoading(true);
-        const data = await getProducts();
-        if (!ignore) setItems(data);
-      } catch (e) {
-        if (!ignore) setError(e.message);
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    };
-
-    loadProducts();
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
 
   // sort는 원본을 바꾸기 때문에 filter로 만든 복사본을 정렬
   const sortedItems = items

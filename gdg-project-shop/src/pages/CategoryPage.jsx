@@ -1,39 +1,16 @@
-import { useEffect, useState } from "react";
 import ItemList from "../components/ItemList";
-import { getProducts } from "../apis/products";
 import LoadingMessage from "../messages/LoadingMessage";
 import ErrorMessage from "../messages/ErrorMessage";
-
+import {useProducts} from "../../hooks/useProducts";
+import { useState } from "react";
 // ...
 
 function CategoryPage() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("");
+  const { items, loading, error } = useProducts();
 
-  useEffect(() => {
-    let ignore = false;
-
-    const loadProducts = async () => {
-      try {
-        setLoading(true);
-        const data = await getProducts();
-        if (!ignore) setItems(data);
-      } catch (e) {
-        if (!ignore) setError(e.message);
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    };
-
-    loadProducts();
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
+  
 
   // 불러온 데이터에서 카테고리 종류만 뽑기 (중복 제거)
   const categories = [...new Set(items.map((item) => item.category))];

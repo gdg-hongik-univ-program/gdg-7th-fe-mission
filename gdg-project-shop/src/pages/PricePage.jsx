@@ -1,39 +1,18 @@
-import { useEffect, useState } from "react";
 import ItemList from "../components/ItemList";
-import { getProducts } from "../apis/products";
 import LoadingMessage from "../messages/LoadingMessage";
 import ErrorMessage from "../messages/ErrorMessage";
+import {useProducts} from "../../hooks/useProducts";
+import { useState } from "react";
 
 function PricePage() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState("");
+  const [loadError] = useState("");
   const [minInput, setMinInput] = useState("");
   const [maxInput, setMaxInput] = useState("");
   const [range, setRange] = useState({ min: null, max: null });
-  const [error, setError] = useState(""); // 입력값 검증 에러
+  const { items, loading, error, setError } = useProducts();
+  // 입력값 검증 에러
 
-  useEffect(() => {
-    let ignore = false;
 
-    const loadProducts = async () => {
-      try {
-        setLoading(true);
-        const data = await getProducts();
-        if (!ignore) setItems(data);
-      } catch (e) {
-        if (!ignore) setLoadError(e.message);
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    };
-
-    loadProducts();
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
 
   const handleSearch = () => {
     const hasMin = minInput.trim() !== "";

@@ -1,4 +1,5 @@
 import Item from "./Item";
+import itemData from "../data/itemData";
 
 function ItemList({ items = itemData }) {
   return (
