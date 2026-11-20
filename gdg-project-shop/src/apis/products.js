@@ -1,4 +1,3 @@
-//아직 미정
 const BASE_URL = "http://192.168.178.114:8080";
 
 async function request(path, options = {}) {

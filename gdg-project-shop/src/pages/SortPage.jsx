@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Item from "../components/Item.jsx";
 
-function SortPage({ products, cart, onAddToCart }) {
+function SortPage({ products}) {
   const [sortOrder, setSortOrder] = useState("default");
 
   const sortedItems = [...products];
@@ -34,8 +34,6 @@ function SortPage({ products, cart, onAddToCart }) {
           itemName={item.itemName}
           price={item.price}
           quantity={item.quantity}
-          cart={cart}
-          onAddToCart={onAddToCart}
         />
       ))}
     </div>

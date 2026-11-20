@@ -3,7 +3,7 @@ import Item from "../components/Item.jsx";
 
 const categories = ["의류", "전자기기", "화장품", "식품"];
 
-function CategoryPage({ products, cart, onAddToCart }) {
+function CategoryPage({ products }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -51,8 +51,6 @@ function CategoryPage({ products, cart, onAddToCart }) {
           itemName={item.itemName}
           price={item.price}
           quantity={item.quantity}
-          cart={cart}
-          onAddToCart={onAddToCart}
         />
       ))}
     </div>

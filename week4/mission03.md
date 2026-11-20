@@ -48,3 +48,35 @@ context는 직접 만들어야할 코드가 많고 부가기능이 없다. 또�
 - 코드를 작성하는 가장 짧거나 빠른 방법 x
 - 배워야할 개념과 작성해야 할 코드가 많음
 --------------------
+# 리팩터링 전 구조
+```
+App  ← cart State, addToCart 함수 보관
+ ├─ Content       ← cart, onAddToCart 받음 (전달만)
+ │   └─ Item      ← cart, onAddToCart 받아서 사용
+ ├─ CategoryPage  ← cart, onAddToCart 받음 (전달만)
+ │   └─ Item      ← 사용
+ ├─ PricePage     ← cart, onAddToCart 받음 (전달만)
+ │   └─ Item      ← 사용
+ └─ SortPage      ← cart, onAddToCart 받음 (전달만)
+     └─ Item      ← 사용
+```
+-----------------------
+# 리팩터링 후 구조
+```
+CartProvider  ← cart State, addToCart 함수 보관 + 방송
+ └─ App           (장바구니 코드 없음)
+     ├─ Content       (장바구니 props 없음)
+     │   └─ Item      ← useCart()로 직접 꺼내 사용
+     ├─ CategoryPage  (장바구니 props 없음)
+     │   └─ Item      ← useCart()
+     ├─ PricePage     (장바구니 props 없음)
+     │   └─ Item      ← useCart()
+     └─ SortPage      (장바구니 props 없음)
+         └─ Item      ← useCart()
+```
+-----------------
+# 변경 이유
+1. props drilling 해결함으로써 중간 전달이 사라짐
+2. 수정할 파일이 줄어듦
+3. 장바구니 코드가 한곳에 모임
+4. 다른 컴포넌트에서도 쉽게 사용

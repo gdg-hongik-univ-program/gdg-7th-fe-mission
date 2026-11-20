@@ -1,6 +1,8 @@
 import { useState } from "react";
+import {useCart} from "../contexts/CartContext"
 
-function Item({ id, itemName, price, quantity, cart, onAddToCart }) {
+function Item({ id, itemName, price, quantity}) {
+  const {cart, addToCart} = useCart();
   const [count, setCount] = useState("");
 
   const isInCart = cart.some((cartItem) => cartItem.id === id);
@@ -27,7 +29,7 @@ function Item({ id, itemName, price, quantity, cart, onAddToCart }) {
       return;
     }
 
-    onAddToCart({ id, count: Number(count) });
+    addToCart({ id, count: Number(count) });
   }
 
   return (

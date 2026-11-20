@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Item from "./Item.jsx";
 
-function Content({ products, cart, onAddToCart }) {
+function Content({ products}) {
   const [keyword, setKeyword] = useState("");
   const [searchWord, setSearchWord] = useState("");
 
@@ -33,8 +33,6 @@ function Content({ products, cart, onAddToCart }) {
               itemName={item.itemName}
               price={item.price}
               quantity={item.quantity}
-              cart={cart}
-              onAddToCart={onAddToCart}
             />
           ))}
         </div>

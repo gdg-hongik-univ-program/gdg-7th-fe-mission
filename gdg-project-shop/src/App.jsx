@@ -11,7 +11,6 @@ import "./App.css";
 import AdminPage from "./pages/AdminPage.jsx";
 
 function App() {
-  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,10 +29,6 @@ function loadProducts() {
     loadProducts();
   }, []);
 
-  function addToCart(newItem) {
-    setCart([...cart, newItem]);
-  }
-
   return (
     <>
       <Navbar />
@@ -49,22 +44,10 @@ function loadProducts() {
 
       {!isLoading && !error && (
         <Routes>
-          <Route
-            path="/"
-            element={<Content products={products} cart={cart} onAddToCart={addToCart} />}
-          />
-          <Route
-            path="/category"
-            element={<CategoryPage products={products} cart={cart} onAddToCart={addToCart} />}
-          />
-          <Route
-            path="/price"
-            element={<PricePage products={products} cart={cart} onAddToCart={addToCart} />}
-          />
-          <Route
-            path="/sort"
-            element={<SortPage products={products} cart={cart} onAddToCart={addToCart} />}
-          />
+          <Route path="/" element={<Content products={products} />} />
+          <Route path="/category" element={<CategoryPage products={products} />} />
+          <Route path="/price" element={<PricePage products={products} />} />
+          <Route path="/sort" element={<SortPage products={products} />} />
           <Route path="/admin" element={<AdminPage onProductsChange={loadProducts} />} />
         </Routes>
       )}

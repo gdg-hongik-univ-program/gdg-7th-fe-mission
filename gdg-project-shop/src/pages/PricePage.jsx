@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Item from "../components/Item.jsx";
 
-function PricePage({ products, cart, onAddToCart }) {
+function PricePage({ products }) {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
@@ -55,8 +55,6 @@ function PricePage({ products, cart, onAddToCart }) {
           itemName={item.itemName}
           price={item.price}
           quantity={item.quantity}
-          cart={cart}
-          onAddToCart={onAddToCart}
         />
       ))}
     </div>
