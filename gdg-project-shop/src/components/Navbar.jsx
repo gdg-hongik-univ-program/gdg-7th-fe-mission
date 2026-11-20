@@ -1,13 +1,9 @@
 import { useNavigate, useLocation } from 'react-router';
-import { useEffect } from 'react';
 
 function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect(() => {
-        console.log(location);
-    }, [location]);
     return (
         <>
             <nav>

@@ -104,10 +104,6 @@
     opacity: 30%;
   }
 
-  .content p {
-    font-size: 0.75rem;
-  }
-
   nav {
     display: flex;
     justify-content: space-between;

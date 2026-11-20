@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { admin_products_stock } from '../apis/products';
 
-function Restock() {
+function Restock({ update }) {
     const [name, setName] = useState("");
     const [quantity, setQuantity] = useState(0);
     const handleClick = async () => {
@@ -9,8 +9,8 @@ function Restock() {
             itemName: name, 
             quantity: quantity
         }
-        admin_products_stock(body);
-        console.log("재고 추가: ", body);
+        await admin_products_stock(body);
+        update("restock");
     }
     return (
         <div className="restock-view">

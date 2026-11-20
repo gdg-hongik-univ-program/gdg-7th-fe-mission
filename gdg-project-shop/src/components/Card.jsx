@@ -6,7 +6,7 @@ function Card({ cart, addCart, id, name, price, quant }) {
 
     useEffect(() => {
         if (cart.find(item => item.id == id)) {
-            console.log(cart.find(item => item.id == id))
+            console.log(cart.find(item => item.id == id));
             setIsDisabled(true);
         }
         return () => setIsDisabled(false);
@@ -22,6 +22,7 @@ function Card({ cart, addCart, id, name, price, quant }) {
     const handleClick = () => {
         if (count) {
             addCart({id: id, count: count});
+            console.log({id: id, count: count});
             setIsDisabled(true);
         }
     }

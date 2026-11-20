@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { admin_delete } from '../apis/products';
 
-function Delete() {
+function Delete({ update }) {
     const [name, setName] = useState("");
     const body = { itemName: name };
 
     const handleClick = async () => {
-        console.log("상품 삭제: ", body);
         await admin_delete(body);
+        update("delete");
     }
     return (
         <div className="delete-view">

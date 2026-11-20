@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { admin_products } from '../apis/products';
 
-function Add() {
+function Add({ update }) {
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [quantity, setQuantity] = useState(0);
@@ -14,8 +14,8 @@ function Add() {
             quantity: quantity, 
             category: category
         }
-        console.log("상품 등록: ", product);
         await admin_products(product);
+        update("add");
     }
     return (
         <div className="add-view">

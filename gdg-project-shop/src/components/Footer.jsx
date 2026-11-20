@@ -1,10 +1,11 @@
 import { useLocation } from "react-router";
 import { purchase } from "../apis/products";
 
-function Footer({ cart }) {
+function Footer({ cart, update }) {
     const buy = async () => {
-        console.log("장바구니 구매하기", cart);
-        await purchase(cart);
+        console.log([...cart]);
+        await purchase([...cart]);
+        update("purchase");
     }
     const location = useLocation();
     return (

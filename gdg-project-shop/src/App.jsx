@@ -13,24 +13,28 @@ function App() {
   const [cart, setCart] = useState([]);
   const [itemData, setItemData] = useState([]);
   const [loading, setLoading] = useState("pending");
+  const [update, setUpdate] = useState("initial");
 
-    useEffect(() => {
-      (async () => {
-        try {
-          setLoading("loading");
-          const data = await products();
-          console.log(data);
-          setItemData(data);
-          setLoading("fulfilled");
-        } catch (error) {
-          setLoading("rejected");
-          console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
-        }
-      })();
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading("loading");
+        const data = await products();
+        setItemData(data);
+        setLoading("fulfilled");
+      } catch (error) {
+        setLoading("rejected");
+        console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
+      }
+    })();
+    console.log(update);
 
-    }, []);
+  }, [update]);
 
-  console.log(cart);
+  const updateData = type => {
+    if (type=="purchase") setCart([]);
+    setUpdate(type);
+  }
 
   const addCart = object => {
     setCart([...cart, object]);
@@ -45,14 +49,14 @@ function App() {
           {loading=="pending" && "Wait..."}
           {loading=="fulfilled" && (
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home cart={cart} addCart={addCart} itemData={itemData} />} />
               <Route path="/category" element={<Category cart={cart} addCart={addCart} itemData={itemData} />} />
               <Route path="/sort-items" element={<Sort cart={cart} addCart={addCart} itemData={itemData} />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin" element={<Admin update={updateData} />} />
             </Routes>
           )}
       </div>
-      <Footer cart={cart} />
+      <Footer cart={cart} update={updateData} />
     </>
   )
 }
