@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Item from "../components/Item.jsx";
-
-const categories = ["의류", "전자기기", "화장품", "식품"];
+import { CATEGORIES } from "../constants/categories";
 
 function CategoryPage({ products }) {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -30,7 +29,7 @@ function CategoryPage({ products }) {
 
         {isOpen && (
           <div className="absolute left-0 top-full z-10 w-full">
-            {categories.map((category) => (
+            {CATEGORIES.map((category) => (
               <button
                 key={category}
                 type="button"

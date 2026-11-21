@@ -1,0 +1,1 @@
+export const CATEGORIES = ["의류", "전자기기", "화장품", "식품"];

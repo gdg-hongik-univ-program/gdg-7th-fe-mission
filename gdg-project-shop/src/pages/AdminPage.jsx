@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createProduct, addStock, deleteProduct } from "../apis/products";
+import { CATEGORIES } from "../constants/categories";
 
-const categories = ["의류", "전자기기", "화장품", "식품"];
 const inputClass =
   "w-full rounded-md border border-gray-400 px-3 py-2 text-sm placeholder:text-gray-400";
 const boxClass = "rounded-lg border border-gray-400 p-6";
@@ -154,7 +154,7 @@ function AdminPage({ onProductsChange }) {
                 className={inputClass}
               >
                 <option value="">카테고리 선택</option>
-                {categories.map((c) => (
+                {CATEGORIES.map((c) => (
                   <option key={c} value={c}>
                     {c}
                   </option>

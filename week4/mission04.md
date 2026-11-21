@@ -9,3 +9,36 @@
 - 역할별로 나누기 : 파일 하나에는 역할 하나만
 - 종류별로 나누기
 - 기능별로 나누기
+----------------------
+# 리팩토링하기
+
+#### 리팩토링 전 문제
+["의류", "전자기기", "화장품", "식품"]이 CategoryPage.jsx와 AdminPage.jsx에 똑같이 두 번 있다.
+
+```jsx
+// CategoryPage.jsx
+const categories = ["의류", "전자기기", "화장품", "식품"];
+
+// AdminPage.jsx
+const categories = ["의류", "전자기기", "화장품", "식품"];
+```
+
+#### 리팩토링 후
+`src/constants/categories.js`에 한 번만 선언하고, 두 파일에서 불러와 사용한다.
+
+```js
+// constants/categories.js
+export const CATEGORIES = ["의류", "전자기기", "화장품", "식품"];
+```
+
+```jsx
+// CategoryPage.jsx, AdminPage.jsx
+import { CATEGORIES } from "../constants/categories";
+
+{CATEGORIES.map((category) => ( ... ))}
+```
+
+## 변경 이유
+- 같은 값이 두 파일에 있으면 카테고리를 바꿀 때 두 곳을 모두 고쳐야 하고, 하나를 빠뜨리면 페이지마다 목록이 달라질 수 있다.
+- API 명세서에서 허용하는 카테고리 4개를 한곳에서 관리할 수 있다.
+- 바뀌지 않는 고정값을 `constants` 폴더에 모아 파일의 역할을 분명히 했다.
