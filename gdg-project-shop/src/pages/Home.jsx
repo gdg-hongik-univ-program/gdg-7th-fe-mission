@@ -10,7 +10,7 @@ function Home({ cart, addCart, itemData }) {
         try {
             const response = await search(text);
             console.log(response);
-            setItem(text ? [response] : response);
+            response && setItem(text ? [response] : response);
         } catch (error) {
             setItem(null);
             console.error("상품 데이터를 불러오는 데 실패했습니다:", error);
