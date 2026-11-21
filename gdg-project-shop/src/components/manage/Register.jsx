@@ -1,4 +1,4 @@
-import { createProduct } from "../apis/products.js";
+import { createProduct } from "../../apis/products.js";
 import { useState } from "react";
 
 function Register({ refresh }) {

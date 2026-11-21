@@ -1,4 +1,4 @@
-import { addStock } from "../apis/products.js";
+import { addStock } from "../../apis/products.js";
 import { useState } from "react";
 
 function Add({ refresh }) {

@@ -1,4 +1,4 @@
-import { deleteProduct } from "../apis/products.js";
+import { deleteProduct } from "../../apis/products.js";
 import { useState } from "react";
 
 function Delete({ refresh }) {

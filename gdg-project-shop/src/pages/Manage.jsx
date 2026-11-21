@@ -1,6 +1,6 @@
-import Register from "./Register";
-import Add from "./Add";
-import Delete from "./Delete";
+import Register from "../components/manage/Register";
+import Add from "../components/manage/Add";
+import Delete from "../components/manage/Delete";
 
 function Manage({ refresh }) {
   return (

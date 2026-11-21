@@ -1,14 +1,14 @@
-import "./App.css";
+import "./styles/App.css";
 import { Route, Routes } from "react-router";
 import { useCallback, useEffect, useState } from "react";
 import { getProducts } from "./apis/products.js";
-import Navbar from "./components/Navbar.jsx";
-import Home from "./components/Home.jsx";
-import Footer from "./components/Footer.jsx";
-import Category from "./components/pages/Category.jsx";
-import Price from "./components/pages/Price.jsx";
-import Sort from "./components/pages/Sort.jsx";
-import Manage from "./manage/Manage.jsx";
+import Navbar from "./layouts/Navbar.jsx";
+import Home from "./pages/Home.jsx";
+import Footer from "./layouts/Footer.jsx";
+import Category from "./pages/Category.jsx";
+import Price from "./pages/Price.jsx";
+import Sort from "./pages/Sort.jsx";
+import Manage from "./pages/Manage.jsx";
 
 function App() {
   const [cart, setCart] = useState([]);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { searchProduct } from "../apis/products.js";
-import Item from "./Item.jsx";
+import Item from "../components/Item.jsx";
 
 function Home({ addToCart, cart }) {
   const [keyWord, setKeyWord] = useState("");

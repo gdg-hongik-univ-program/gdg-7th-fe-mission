@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../components/Item";
 import { useState } from "react";
 
 function Price({ item, addToCart, cart }) {
