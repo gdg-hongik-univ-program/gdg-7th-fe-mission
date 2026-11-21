@@ -1,6 +1,4 @@
-// 가짜(mock) 백엔드 서버입니다. 진짜 서버 주소를 받으면 이 파일과
-// vite.config.js 안의 mockServer() 줄을 지우면 됩니다.
-// 데이터는 메모리에만 저장되어서 npm run dev를 껐다 켜면 처음 상태로 돌아가요.
+
 import fs from 'node:fs';
 
 const initialData = JSON.parse(
