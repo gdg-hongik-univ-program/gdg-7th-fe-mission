@@ -1,0 +1,2 @@
+components는 화면을 구성하는 독립적인 ui 요소를 관리하는 폴더이다. pages는 url에 따라 렌더링되는 페이지를 관리하는 폴더이다. apis는 api에 http 요청을 보내는 함수를 관리한다. hooks는 여러 컴포넌트에서 반복되는 상태 관리나 비동기 처리 로직을 커스텀 Hook으로 분리한다. utils는 React의 Hook이나 컴포넌트에 의존하지 않는 일반 JavaScript 함수를 관리한다. 화면은 역할에 따라 분리하면 좋을 것 같다.
+useProducts.js는 React에서 사용하는 커스텀 Hook이므로 src/hooks에서 관리하는 것이 자연스러웠다.
