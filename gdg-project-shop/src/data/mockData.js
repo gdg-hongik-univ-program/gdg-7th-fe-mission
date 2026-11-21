@@ -1,7 +1,7 @@
 // src/data/mockData.js
 
 
-export const itemData = [
+const itemData = [
   // 의류
   { id: 1, itemName: "원피스", price: 500, quantity: 13, category: "의류" },
   { id: 2, itemName: "청바지", price: 200, quantity: 7, category: "의류" },
@@ -22,3 +22,5 @@ export const itemData = [
   { id: 11, itemName: "과자", price: 1500, quantity: 25, category: "식품" },
   { id: 12, itemName: "커피", price: 4500, quantity: 20, category: "식품" },
 ];
+
+export default itemData;

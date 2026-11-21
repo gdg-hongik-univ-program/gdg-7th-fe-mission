@@ -1,9 +1,10 @@
 import { useState } from "react";
-import {useCart} from "../context/CartContext";
+import { useCartStore } from "../context/useCartStore";
 import { purchaseProducts } from "../apis/products";
 
 function Footer() {
-  const { cart, clearCart } = useCart();
+  const cart = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
   const [purchaseResult, setPurchaseResult] = useState(null);
   const [error, setError] = useState("");
   const [isPurchasing, setIsPurchasing] = useState(false);

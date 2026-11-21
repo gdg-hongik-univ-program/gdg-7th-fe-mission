@@ -1,7 +1,7 @@
 import ItemList from "./ItemList";
 import LoadingMessage from "../messages/LoadingMessage";
 import ErrorMessage from "../messages/ErrorMessage";
-import {useProducts} from "../..//hooks/useProducts";
+import {useProducts} from "../hooks/useProducts";
 import { useState } from "react";
 
 function Content() {

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import {useCart} from "../context/CartContext";
+import { useCartStore } from "../context/useCartStore";
 
 function Item({ item }) {
   const [count, setCount] = useState("");
-  const { addToCart, isInCart } = useCart();
-
-  const added = isInCart(item.id); // 이미 장바구니에 담겼는지
-
+  const cart = useCartStore((state) => state.cart);
+  const addToCart = useCartStore((state) => state.addToCart);
+  const added = cart.some((c) => c.id === item.id);
+  
   const handleAddToCart = () => {
     const num = Number(count);
 
@@ -44,7 +44,7 @@ function Item({ item }) {
           disabled={added}
         />
         <button onClick={handleAddToCart} disabled={added}>
-            장바구니
+          장바구니
         </button>
       </div>
     </div>
