@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Content from './components/Content';
 import Footer from './components/Footer';
@@ -15,7 +15,13 @@ function App() {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const location = useLocation();
+
+  // 페이지를 옮길 때마다 서버에서 상품 목록을 다시 받아와요.
+  // (관리자 페이지에서 등록/재고 추가/삭제한 내용이 바로 보이도록)
   useEffect(() => {
+    if (location.pathname === '/admin') return;
+
     const loadProducts = async () => {
       try {
         const data = await getProducts();
@@ -29,7 +35,7 @@ function App() {
     };
 
     loadProducts();
-  }, []);
+  }, [location.pathname]);
 
 
   const showPage = (page) => {

@@ -18,7 +18,7 @@ function PricePage({ items, cart, setCart }) {
       alert('최소 가격이 최대 가격보다 클 수 없어요');
       return;
     }
-    setFilteredItems(itemData.filter((item) => item.price >= min && item.price <= max));
+    setFilteredItems(items.filter((item) => item.price >= min && item.price <= max));
   };
 
 const shownItems = filteredItems === null ? items : filteredItems;
