@@ -1,4 +1,4 @@
-import { getProducts } from './apis/products'
+import { getProducts, purchaseProducts } from './apis/products'
 import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router'
 import './App.css'
@@ -36,6 +36,34 @@ function App() {
     loadProducts();
   }, []);
 
+  // 서버 데이터가 바뀐 뒤 상품 목록을 다시 불러오기
+  async function refreshProducts() {
+    try {
+      const data = await getProducts();
+      setProducts(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // 장바구니 일괄 구매
+  async function handlePurchase() {
+    if (cart.length === 0) {
+      alert("장바구니가 비어 있어요.");
+      return;
+    }
+    try {
+      const result = await purchaseProducts(cart);
+      console.log(result);
+      alert(`총 ${result.totalPrice.toLocaleString()}원 구매 완료!`);
+      setCart([]);               // 장바구니 비우기
+      await refreshProducts();   // 줄어든 재고 다시 받아오기
+    } catch (error) {
+      console.error(error);
+      alert("구매에 실패했어요.");
+    }
+  }
+
   function handleAddToCart(id, count) {
     setCart((prev) => {
       if (prev.some((item) => item.id === id)) return prev;
@@ -56,10 +84,10 @@ function App() {
         <Route path="/category" element={<CategoryPage products={products} cart={cart} onAddToCart={handleAddToCart} />} />
         <Route path="/price" element={<PricePage products={products} cart={cart} onAddToCart={handleAddToCart} />} />
         <Route path="/sort" element={<SortPage products={products} cart={cart} onAddToCart={handleAddToCart} />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminPage onRefresh={refreshProducts} />} />
       </Routes>
       )}
-      {!isAdmin && <Footer />}
+      {!isAdmin && <Footer onPurchase={handlePurchase} />}
     </div>
   )
 }

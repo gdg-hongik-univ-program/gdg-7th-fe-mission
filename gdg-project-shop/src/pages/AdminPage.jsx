@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { createProduct, addStock, deleteProduct } from '../apis/products';
 
 // 카테고리
 const categories = ["의류", "전자기기", "화장품", "식품"];
 
-export default function AdminPage(){
+export default function AdminPage({ onRefresh }){
     // 상품 등록
     const [newName, setNewName] = useState("");
     const [newQuantity, setNewQuantity] = useState("");
@@ -23,34 +24,56 @@ export default function AdminPage(){
     }
 
     // 상품 등록
-    function handleRegister() {
+    async function handleRegister() {
+        if (newName === "" || newCategory === "") {
+            alert("상품명과 카테고리를 입력해 주세요.");
+            return;
+        }
         const product = {
             itemName: newName,
             price: Number(newPrice),
             quantity: Number(newQuantity),
             category: newCategory,
         };
-        console.log(product);
-        console.log("상품이 등록되었습니다. ");
+        try {
+            const result = await createProduct(product);
+            console.log(result);
+            alert("상품이 등록되었습니다.");
+            await onRefresh();
+        } catch (error) {
+            console.error(error);
+            alert("상품 등록에 실패했어요.");
+        }
     }
 
     // 재고 추가
-    function handleAddStock() {
+    async function handleAddStock() {
         const stock = {
             itemName: stockName,
             quantity: Number(stockQuantity),
         };
-        console.log(stock);
-        console.log("재고가 추가되었습니다. ");
+        try {
+            const result = await addStock(stock);
+            console.log(result);
+            alert("재고가 추가되었습니다.");
+            await onRefresh();
+        } catch (error) {
+            console.error(error);
+            alert("재고 추가에 실패했어요.");
+        }
     }
 
     // 상품 삭제
-    function handleDelete() {
-        const target = {
-            itemName: deleteName,
-        };
-        console.log(target);
-        console.log("상품이 삭제되었습니다. ");
+    async function handleDelete() {
+        try {
+            const result = await deleteProduct(deleteName);
+            console.log(result);
+            alert("상품이 삭제되었습니다.");
+            await onRefresh();
+        } catch (error) {
+            console.error(error);
+            alert("상품 삭제에 실패했어요.");
+        }
     }
 
     // 반복되는 Tailwind 클래스를 한 번만 적어 두고 재사용
