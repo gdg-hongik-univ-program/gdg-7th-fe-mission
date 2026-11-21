@@ -13,7 +13,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [itemData, setItemData] = useState([]);
   const [loading, setLoading] = useState("pending");
-  const [update, setUpdate] = useState("initial");
+  const [update, setUpdate] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -33,7 +33,7 @@ function App() {
 
   const updateData = type => {
     if (type=="purchase") setCart([]);
-    setUpdate(type);
+    setUpdate(n => n+1);
   }
 
   const addCart = object => {

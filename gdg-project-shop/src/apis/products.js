@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const dev = true;
+const dev = false;
 const BASE_URL = dev ? "/data" : "http://localhost:8080";
 
 export async function products() {
