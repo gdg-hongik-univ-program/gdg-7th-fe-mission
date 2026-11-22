@@ -27,6 +27,11 @@ function AdminPage() {
         try {
             const result = await createProduct(newProduct);
             console.log('상품이 등록되었어요', result);
+            alert(`'${result.itemName}' 상품이 등록되었어요`);
+            setItemName('');
+            setPrice('');
+            setQuantity('');
+            setCategory('');
         } catch (error) {
             console.error('상품 등록에 실패했어요', error);
             alert('상품 등록에 실패했어요');
@@ -50,6 +55,9 @@ function AdminPage() {
         try {
             const result = await addStock(stockData);
             console.log('재고가 추가되었어요', result);
+            alert(`'${result.itemName}' 재고가 추가되었어요. 지금 수량: ${result.quantity}개`);
+            setStockName('');
+            setStockQuantity('');
         } catch (error) {
             console.error('재고 추가에 실패했어요', error);
             alert('재고 추가에 실패했어요');
@@ -68,6 +76,8 @@ function AdminPage() {
         try {
             const result = await deleteProduct(deleteData);
             console.log('상품이 삭제되었어요. 남은 상품: ', result);
+            alert(`'${deleteName}' 상품이 삭제되었어요`);
+            setDeleteName('');
         } catch (error) {
             console.error('상품 삭제에 실패했어요', error);
             alert('상품 삭제에 실패했어요');
