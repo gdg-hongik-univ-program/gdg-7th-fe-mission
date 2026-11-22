@@ -1,26 +1,26 @@
 import Card from '../components/Card';
 import { useState } from 'react';
+import { useShopContext } from '../context/ShopContext';
 // import { itemData } from '../data/mockData.js';
 
-function Sort({ cart, addCart, itemData }) {
+function Sort() {
+  const { itemData } = useShopContext();
   const [sortBy, setSortBy] = useState('name');
 
   const sorted =
     sortBy == 'name'
-      ? itemData.sort((a, b) => {
+      ? [...itemData].sort((a, b) => {
           if (a.itemName < b.itemName) return -1;
           if (a.itemName > b.itemName) return 1;
           return 0;
         })
-      : itemData.sort((a, b) => {
+      : [...itemData].sort((a, b) => {
           return a.price - b.price;
         });
 
   const items = (data) =>
     data.map((i) => (
       <Card
-        addCart={addCart}
-        cart={cart}
         key={i.id}
         id={i.id}
         name={i.itemName}

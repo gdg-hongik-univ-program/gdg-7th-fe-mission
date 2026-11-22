@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { search } from '../apis/products';
 import Card from '../components/Card';
+import { useShopContext } from '../context/ShopContext';
 
-function Home({ cart, addCart, itemData }) {
+function Home() {
+  const { itemData } = useShopContext();
   const [text, setText] = useState('');
   const [item, setItem] = useState(itemData);
   const handleClick = () => {
@@ -36,8 +38,6 @@ function Home({ cart, addCart, itemData }) {
         {item ? (
           item.map((item) => (
             <Card
-              addCart={addCart}
-              cart={cart}
               key={item.id}
               id={item.id}
               name={item.itemName}

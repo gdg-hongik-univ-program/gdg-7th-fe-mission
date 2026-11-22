@@ -1,16 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useShopContext } from '../context/ShopContext';
 
-function Card({ cart, addCart, id, name, price, quant }) {
+function Card({ id, name, price, quant }) {
+  const { cart, addCart } = useShopContext();
   const [count, setCount] = useState('');
-  const [isDisabled, setIsDisabled] = useState(false);
-
-  useEffect(() => {
-    if (cart.find((item) => item.id == id)) {
-      console.log(cart.find((item) => item.id == id));
-      setIsDisabled(true);
-    }
-    return () => setIsDisabled(false);
-  }, [cart, id]);
+  const isDisabled = cart.some((item) => item.id == id);
 
   const change = (e) => {
     if (e.target.value <= 0) {
@@ -23,7 +17,6 @@ function Card({ cart, addCart, id, name, price, quant }) {
     if (count) {
       addCart({ id: id, count: count });
       console.log({ id: id, count: count });
-      setIsDisabled(true);
     }
   };
   return (
@@ -31,7 +24,7 @@ function Card({ cart, addCart, id, name, price, quant }) {
       <div className="details flex flex-col items-start gap-2">
         <h6>{name}</h6>
         <div className="flex gap-4">
-          <p>{price}원</p>{' '}
+          <p>{price}원</p>
           <caption className="opacity-50">남은 수량 {quant}개</caption>
         </div>
       </div>

@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { admin_products } from '../apis/products';
+import { useShopContext } from '../context/ShopContext';
 
-function Add({ update }) {
+function Add() {
+  const { updateData } = useShopContext();
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -15,7 +17,7 @@ function Add({ update }) {
       category: category,
     };
     await admin_products(product);
-    update('add');
+    updateData('add');
   };
   return (
     <div className="add-view">

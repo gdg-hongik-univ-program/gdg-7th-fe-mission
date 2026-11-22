@@ -1,8 +1,10 @@
 import Card from '../components/Card';
 import { useState } from 'react';
+import { useShopContext } from '../context/ShopContext';
 // import { itemData } from '../data/mockData.js';
 
-function Category({ cart, addCart, itemData }) {
+function Category() {
+  const { itemData } = useShopContext();
   const [category, setCategory] = useState('전체');
   const categories = [
     '전체',
@@ -18,8 +20,6 @@ function Category({ cart, addCart, itemData }) {
   const items = (data) =>
     data.map((i) => (
       <Card
-        cart={cart}
-        addCart={addCart}
         key={i.id}
         id={i.id}
         name={i.itemName}

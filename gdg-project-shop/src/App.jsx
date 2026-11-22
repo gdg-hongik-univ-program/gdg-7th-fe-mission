@@ -8,6 +8,7 @@ import Category from './pages/Category';
 import Sort from './pages/Sort';
 import Admin from './pages/Admin';
 import { products } from './apis/products.js';
+import { ShopContext } from './context/ShopContext';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -36,11 +37,11 @@ function App() {
   };
 
   const addCart = (object) => {
-    setCart([...cart, object]);
+    setCart((currentCart) => [...currentCart, object]);
   };
 
   return (
-    <>
+    <ShopContext value={{ cart, addCart, itemData, updateData }}>
       <Navbar />
       <div className="p-8">
         {loading == 'loading' && 'Loading...'}
@@ -48,30 +49,15 @@ function App() {
         {loading == 'pending' && 'Wait...'}
         {loading == 'fulfilled' && (
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Home cart={cart} addCart={addCart} itemData={itemData} />
-              }
-            />
-            <Route
-              path="/category"
-              element={
-                <Category cart={cart} addCart={addCart} itemData={itemData} />
-              }
-            />
-            <Route
-              path="/sort-items"
-              element={
-                <Sort cart={cart} addCart={addCart} itemData={itemData} />
-              }
-            />
-            <Route path="/admin" element={<Admin update={updateData} />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/category" element={<Category />} />
+            <Route path="/sort-items" element={<Sort />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         )}
       </div>
-      <Footer cart={cart} update={updateData} />
-    </>
+      <Footer />
+    </ShopContext>
   );
 }
 

@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { admin_delete } from '../apis/products';
+import { useShopContext } from '../context/ShopContext';
 
-function Delete({ update }) {
+function Delete() {
+  const { updateData } = useShopContext();
   const [name, setName] = useState('');
   const body = { itemName: name };
 
   const handleClick = async () => {
     await admin_delete(body);
-    update('delete');
+    updateData('delete');
   };
   return (
     <div className="delete-view">

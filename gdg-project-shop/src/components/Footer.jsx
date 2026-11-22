@@ -1,11 +1,13 @@
 import { useLocation } from 'react-router';
 import { purchase } from '../apis/products';
+import { useShopContext } from '../context/ShopContext';
 
-function Footer({ cart, update }) {
+function Footer() {
+  const { cart, updateData } = useShopContext();
   const buy = async () => {
     console.log([...cart]);
     await purchase([...cart]);
-    update('purchase');
+    updateData('purchase');
   };
   const location = useLocation();
   return (

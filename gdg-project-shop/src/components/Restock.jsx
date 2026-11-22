@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { admin_products_stock } from '../apis/products';
+import { useShopContext } from '../context/ShopContext';
 
-function Restock({ update }) {
+function Restock() {
+  const { updateData } = useShopContext();
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState(0);
   const handleClick = async () => {
@@ -10,7 +12,7 @@ function Restock({ update }) {
       quantity: quantity,
     };
     await admin_products_stock(body);
-    update('restock');
+    updateData('restock');
   };
   return (
     <div className="restock-view">
