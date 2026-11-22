@@ -1,9 +1,9 @@
 // 백엔드 개발자의 서버 주소로 변경 (예: "http://192.168.0.15:8080")
-const BASE_URL = "http://192.168.164.69:8080";
+const BASE_URL = "";
 
 // GET: 전체 상품 조회
 export async function getProducts() {
-  const response = await fetch(`${BASE_URL}/products`);
+  const response = await fetch(`${BASE_URL}/data/products.json`);
   if (!response.ok) {
     throw new Error(`상품 조회 실패: ${response.status}`);
   }
@@ -13,7 +13,7 @@ export async function getProducts() {
 // GET: 상품명 검색
 export async function searchProduct(itemName) {
   const response = await fetch(
-    `${BASE_URL}/products?itemName=${encodeURIComponent(itemName)}`
+    `${BASE_URL}/products?itemName=${encodeURIComponent(itemName)}`,
   );
   if (!response.ok) {
     throw new Error(`상품 검색 실패: ${response.status}`);

@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useCart } from "../contexts/CartContext";
 
-export default function Item({ id, itemName, price, quantity, cart, onAddToCart }) {
+export default function Item({
+  id,
+  itemName,
+  price,
+  quantity,
+}) {
+  const { cart, addToCart } = useCart();
   const [count, setCount] = useState("");
-  const isInCart = cart.some((c) => c.id === id);  
+  const isInCart = cart.some((c) => c.id === id);
 
   // 입력할 때: 숫자만, 재고 이하로
   function handleChange(e) {
@@ -27,7 +34,7 @@ export default function Item({ id, itemName, price, quantity, cart, onAddToCart 
       return;
     }
 
-    onAddToCart(id, num);
+    addToCart(id, num);
   }
 
   return (
