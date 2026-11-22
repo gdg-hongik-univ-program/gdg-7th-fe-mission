@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { CartContext } from '../context/CartContext';
  
-function Item({ item, cart, setCart }) {
+function Item({ item }) {
+  const { cart, setCart } = useContext(CartContext);
   const [count, setCount] = useState('');
   const isInCart = cart.some((cartItem) => cartItem.id === item.id);
  
