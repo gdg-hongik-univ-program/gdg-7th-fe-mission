@@ -4,6 +4,8 @@
 
 이와 같이 높이 props를 끌어올려야 하는 상황을 Prop drilling이라 한다. 그리고 이런 상황을 해결하기 위해 순간이동시키는 방법을 Context라 한다. 
 
+### Context
+
 ```js
 <Section>
   <Heading level={3}>About</Heading>
@@ -34,7 +36,6 @@ export default function Heading({ children }) {
 ```
 이렇게 가장 근처의 상태를 요청할 수 있고,
 
-
 ```js
 import { LevelContext } from './LevelContext.js';
 
@@ -54,3 +55,14 @@ export default function Section({ level, children }) {
 - Zustand
 - Jotai
 - Redux Toolkit
+
+### Context가 있음에도 라이브러리를 사용하는 이유는?
+
+#### Context
+- Context는 전역 변수와 개념이 유사하다. 트리를 따라가며가 아닌, 어디서나 값을 넘겨주고 요청할 수 있다. 
+- Context API에서 State를 변경하면, Provider로 감싼 모든 자식 컴포넌트들이 리렌더링된다.
+
+#### 라이브러리
+- 라이브러리는 셀렉터, 아톰, 조회 , 구독 등의 개념을 사용해 쉽게 관리가 가능하도록 한다. 
+- Context처럼 Provider로 감싸줄 필요가 없다. 
+- 오직 변화가 일어나는 경우에만 리렌더링
