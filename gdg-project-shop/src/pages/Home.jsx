@@ -2,7 +2,7 @@ import { useState } from "react";
 import { searchProduct } from "../apis/products.js";
 import Item from "../components/Item.jsx";
 
-function Home({ addToCart, cart }) {
+function Home() {
   const [keyWord, setKeyWord] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
@@ -49,9 +49,7 @@ function Home({ addToCart, cart }) {
             <p>검색 결과가 없습니다</p>
           </>
         ) : (
-          results.map((item) => (
-            <Item key={item.id} item={item} addToCart={addToCart} cart={cart} />
-          ))
+          results.map((item) => <Item key={item.id} item={item} />)
         )}
       </div>
     </div>

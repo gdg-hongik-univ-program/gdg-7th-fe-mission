@@ -1,7 +1,6 @@
 import "./styles/App.css";
 import { Route, Routes } from "react-router";
-import { useCallback, useEffect, useState } from "react";
-import { getProducts } from "./apis/products.js";
+import { useProducts } from "./hooks/useProducts.js";
 import Navbar from "./layouts/Navbar.jsx";
 import Home from "./pages/Home.jsx";
 import Footer from "./layouts/Footer.jsx";
@@ -11,33 +10,7 @@ import Sort from "./pages/Sort.jsx";
 import Manage from "./pages/Manage.jsx";
 
 function App() {
-  const [cart, setCart] = useState([]);
-  const [item, setItem] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const addToCart = (id, count) => {
-    setCart((prev) => [...prev, { id, count }]);
-  };
-
-  // 서버에서 상품 목록을 다시 받아와 item state를 갱신
-  const refresh = useCallback(async () => {
-    const products = await getProducts();
-    setItem(products);
-  }, []);
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        await refresh();
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, [refresh]);
+  const { item, loading, error, refresh } = useProducts();
 
   if (loading)
     return (
@@ -56,23 +29,14 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home addToCart={addToCart} cart={cart} />} />
-        <Route
-          path="/category"
-          element={<Category item={item} addToCart={addToCart} cart={cart} />}
-        />
-        <Route
-          path="/price-bound"
-          element={<Price item={item} addToCart={addToCart} cart={cart} />}
-        />
-        <Route
-          path="/sort"
-          element={<Sort addToCart={addToCart} cart={cart} />}
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="/category" element={<Category item={item} />} />
+        <Route path="/price-bound" element={<Price item={item} />} />
+        <Route path="/sort" element={<Sort />} />
         <Route path="/manage" element={<Manage refresh={refresh} />} />
       </Routes>
 
-      <Footer refresh={refresh} cart={cart} setCart={setCart} item={item} />
+      <Footer refresh={refresh} item={item} />
     </>
   );
 }

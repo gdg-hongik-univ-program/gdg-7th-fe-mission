@@ -1,7 +1,7 @@
 import Item from "../components/Item";
 import { useState } from "react";
 
-function Price({ item, addToCart, cart }) {
+function Price({ item }) {
   const [lower, setLower] = useState("");
   const [upper, setUpper] = useState("");
   const [range, setRange] = useState(null);
@@ -49,7 +49,7 @@ function Price({ item, addToCart, cart }) {
 
       <div className="flex flex-col items-center gap-3 pt-3">
         {filterItem_P.map((item) => (
-          <Item key={item.id} item={item} addToCart={addToCart} cart={cart} />
+          <Item key={item.id} item={item} />
         ))}
       </div>
     </>

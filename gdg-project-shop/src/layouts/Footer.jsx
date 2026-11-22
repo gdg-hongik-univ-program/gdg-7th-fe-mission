@@ -1,6 +1,9 @@
 import { purchaseProducts } from "../apis/products";
+import { useCart } from "../hooks/useCart.js";
 
-function Footer({ refresh, cart, setCart, item }) {
+function Footer({ refresh, item }) {
+  const { cart, clearCart } = useCart();
+
   // 렌더링될 때마다 cart + item으로 계산 → cart가 바뀌면 자동으로 다시 계산됨
   const total = cart.reduce((sum, c) => {
     const product = item.find((p) => p.id === c.id);
@@ -16,7 +19,7 @@ function Footer({ refresh, cart, setCart, item }) {
     try {
       await purchaseProducts(cart);
       await refresh(); // 재고 갱신
-      setCart([]); // 장바구니 비우기
+      clearCart(); // 장바구니 비우기
       alert(`${total}원 결제 완료`);
     } catch (err) {
       console.error(err);

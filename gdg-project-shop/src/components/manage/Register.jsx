@@ -1,18 +1,13 @@
 import { createProduct } from "../../apis/products.js";
 import { useState } from "react";
+import CategorySelect from "../CategorySelect.jsx";
 
 function Register({ refresh }) {
   const [itemName, setItemname] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
 
-  const [category, setCatagory] = useState("카테고리 선택");
-  const [isOpen, setOpen] = useState(false);
-
-  const handleClick = (e) => {
-    setCatagory(e.currentTarget.textContent);
-    setOpen(false);
-  };
+  const [category, setCategory] = useState("카테고리 선택");
 
   async function handleRegister() {
     const data = {
@@ -63,42 +58,11 @@ function Register({ refresh }) {
             />
           </div>
           <div className="flex flex-col items-center gap-4">
-            <button
-              onClick={() => setOpen(!isOpen)}
-              className="border bg-white rounded-md cursor-pointer w-40 text-sm"
-            >
-              {category}
-            </button>
-            {isOpen ? (
-              <>
-                <button
-                  onClick={handleClick}
-                  className="border bg-gray-200 rounded-md cursor-pointer w-40 text-sm"
-                >
-                  의류
-                </button>
-                <button
-                  onClick={handleClick}
-                  className="border bg-gray-200 rounded-md cursor-pointer w-40 text-sm"
-                >
-                  전자기기
-                </button>
-                <button
-                  onClick={handleClick}
-                  className="border bg-gray-200 rounded-md cursor-pointer w-40 text-sm"
-                >
-                  화장품
-                </button>
-                <button
-                  onClick={handleClick}
-                  className="border bg-gray-200 rounded-md cursor-pointer w-40 text-sm"
-                >
-                  식품
-                </button>
-              </>
-            ) : (
-              <></>
-            )}
+            <CategorySelect
+              category={category}
+              onSelect={setCategory}
+              width="w-40"
+            />
           </div>
         </div>
 

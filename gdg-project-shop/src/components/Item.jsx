@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useCart } from "../hooks/useCart.js";
 
-function Item({ item, addToCart, cart }) {
+function Item({ item }) {
+  const { cart, addToCart } = useCart();
   const [count, setCount] = useState("");
   const isCart = cart.find((c) => c.id === item.id);
   const left = item.quantity - (isCart ? Number(isCart.count) : 0);

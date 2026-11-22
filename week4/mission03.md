@@ -24,3 +24,6 @@ Zustand: 코드가 적고 배우기 쉽다. 프로젝트의 규모가 커지면 
 Jotai: 작은 상태를 잘게 나누기 좋다. 상태 흐름을 한눈에 보기 어렵다.
 Redux Toolkit: 대규모 팀에 적합하다. 보일러 플레이트가 많고 학습량이 크다.
 ### 장바구니 상태 관리 개선 (리팩터링 전후 구조와 변경 이유)
+전: cart가 App.jsx-> Home/Category/Price를 거쳐 Item까지 props로 넘기고, Footer엔 setCart를 통째로 넘겼다.
+후: CartProvider(useReducer)가 main.jsx에서 App을 감싸고, Item과 Footer만 useCart()로 꺼냈다
+이유: 실제로 쓰는 곳은 addToCart, clearCart이기 때문에 이들만 cart 바뀌는 곳을 cartReducer로 모았다.
