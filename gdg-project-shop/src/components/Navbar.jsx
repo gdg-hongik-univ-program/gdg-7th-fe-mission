@@ -10,11 +10,11 @@ function Navbar() {
   const NavButton = (event) => {
     const buttonText = event.currentTarget.innerText;
 
-    if (buttonText === "가격 범위 필터링") {
+    if (buttonText === '가격 범위 필터링') {
       navigate('/price');
-    } else if (buttonText === "상품 정렬") {
+    } else if (buttonText === '상품 정렬') {
       navigate('/sort');
-    } else if (buttonText === "카테고리 필터링") {
+    } else if (buttonText === '카테고리 필터링') {
       navigate('/category');
     }
   };

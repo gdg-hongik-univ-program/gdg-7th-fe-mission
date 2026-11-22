@@ -1,4 +1,3 @@
-
 #root {
   height: 100vh;
   display: flex;
@@ -97,7 +96,7 @@ main img {
   width: 400px;
   height: 400px;
 
-  background-image: url("/gdg-favicon.svg");
+  background-image: url('/gdg-favicon.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

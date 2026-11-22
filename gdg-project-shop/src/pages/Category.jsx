@@ -2,10 +2,10 @@ import { useState } from 'react';
 import ProductList from '../components/ProductList.jsx';
 
 function Category({ items, cart, addToCart }) {
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
 
   const filteredItems = items.filter((item) => {
-    if (category === "") {
+    if (category === '') {
       return true;
     }
 
@@ -25,11 +25,7 @@ function Category({ items, cart, addToCart }) {
         <option value="식품">식품</option>
       </select>
 
-      <ProductList
-        items={filteredItems}
-        cart={cart}
-        addToCart={addToCart}
-      />
+      <ProductList items={filteredItems} cart={cart} addToCart={addToCart} />
     </div>
   );
 }

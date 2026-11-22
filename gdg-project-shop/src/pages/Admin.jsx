@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { createProduct, addStock, deleteProduct } from '../apis/products.js';
+import {
+  validateProductRegister,
+  validateStockAdd,
+  validateProductDelete,
+} from '../utils/validation.js';
 
 function Admin({ onRefresh }) {
   // 1. 상품 등록 상태
@@ -19,34 +24,18 @@ function Admin({ onRefresh }) {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const trimmedName = regName.trim();
-    const priceNum = Number(regPrice);
-    const quantityNum = Number(regQuantity);
-
-    if (!trimmedName || !regCategory) {
-      alert('상품명과 카테고리를 모두 입력해 주세요.');
-      return;
-    }
-    if (regPrice === '' || Number.isNaN(priceNum) || priceNum <= 0) {
-      alert('가격은 1원 이상의 올바른 숫자로 입력해 주세요.');
-      return;
-    }
-    if (
-      regQuantity === '' ||
-      Number.isNaN(quantityNum) ||
-      quantityNum < 1 ||
-      !Number.isInteger(quantityNum)
-    ) {
-      alert('수량은 1개 이상의 정수로 입력해 주세요.');
-      return;
-    }
-
     const data = {
-      itemName: trimmedName,
-      price: priceNum,
-      quantity: quantityNum,
+      itemName: regName.trim(),
+      price: Number(regPrice),
+      quantity: Number(regQuantity),
       category: regCategory,
     };
+
+    const errorMessage = validateProductRegister(data);
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
 
     try {
       const result = await createProduct(data);
@@ -68,28 +57,19 @@ function Admin({ onRefresh }) {
   const handleAddStock = async (e) => {
     e.preventDefault();
 
-    const trimmedName = addName.trim();
-    const quantityNum = Number(addQuantity);
+    const stockData = {
+      itemName: addName.trim(),
+      quantity: Number(addQuantity),
+    };
 
-    if (!trimmedName) {
-      alert('상품명을 입력해 주세요.');
-      return;
-    }
-    if (
-      addQuantity === '' ||
-      Number.isNaN(quantityNum) ||
-      quantityNum < 1 ||
-      !Number.isInteger(quantityNum)
-    ) {
-      alert('추가할 수량은 1개 이상의 정수로 입력해 주세요.');
+    const errorMessage = validateStockAdd(stockData);
+    if (errorMessage) {
+      alert(errorMessage);
       return;
     }
 
     try {
-      const result = await addStock({
-        itemName: trimmedName,
-        quantity: quantityNum,
-      });
+      const result = await addStock(stockData);
       console.log('재고가 추가되었습니다.', result);
       await onRefresh();
       alert('재고가 추가되었습니다.');
@@ -107,16 +87,14 @@ function Admin({ onRefresh }) {
     e.preventDefault();
 
     const trimmedName = delName.trim();
-
-    if (!trimmedName) {
-      alert('삭제할 상품명을 입력해 주세요.');
+    const errorMessage = validateProductDelete(trimmedName);
+    if (errorMessage) {
+      alert(errorMessage);
       return;
     }
 
     try {
-      const result = await deleteProduct({
-        itemName: trimmedName,
-      });
+      const result = await deleteProduct({ itemName: trimmedName });
       console.log('상품이 삭제되었습니다.', result);
       await onRefresh();
       alert('상품이 삭제되었습니다.');
@@ -130,7 +108,7 @@ function Admin({ onRefresh }) {
 
   return (
     <main className="admin-page">
-      {/* 1. 상품 등록 섹션 */}
+      {/* 기존 JSX UI 그대로 유지 */}
       <section className="admin-section">
         <h2>상품 등록</h2>
         <form className="admin-card" onSubmit={handleRegister}>
@@ -191,7 +169,6 @@ function Admin({ onRefresh }) {
         </form>
       </section>
 
-      {/* 2. 재고 추가 섹션 */}
       <section className="admin-section">
         <h2>재고 추가</h2>
         <form className="admin-card" onSubmit={handleAddStock}>
@@ -225,7 +202,6 @@ function Admin({ onRefresh }) {
         </form>
       </section>
 
-      {/* 3. 상품 삭제 섹션 */}
       <section className="admin-section">
         <h2>상품 삭제</h2>
         <form className="admin-card" onSubmit={handleDelete}>

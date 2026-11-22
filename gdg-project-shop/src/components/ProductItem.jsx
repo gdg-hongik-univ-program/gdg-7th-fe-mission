@@ -1,11 +1,9 @@
 import { useState } from 'react';
 
 function ProductItem({ item, cart, addToCart }) {
-  const [count, setCount] = useState("1");
+  const [count, setCount] = useState('1');
 
-  const isAdded = cart.some(
-    (cartItem) => cartItem.id === item.id
-  );
+  const isAdded = cart.some((cartItem) => cartItem.id === item.id);
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -14,7 +12,7 @@ function ProductItem({ item, cart, addToCart }) {
     setCount(numberOnly);
   };
 
-  const isOverStock = count !== "" && Number(count) > item.quantity;
+  const isOverStock = count !== '' && Number(count) > item.quantity;
 
   const handleCart = () => {
     const purchaseCount = Number(count);
@@ -46,12 +44,7 @@ function ProductItem({ item, cart, addToCart }) {
 
       <button
         onClick={handleCart}
-        disabled={
-          isAdded ||
-          count === "" ||
-          Number(count) < 1 ||
-          isOverStock
-        }
+        disabled={isAdded || count === '' || Number(count) < 1 || isOverStock}
       >
         장바구니
       </button>

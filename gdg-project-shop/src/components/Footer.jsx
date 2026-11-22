@@ -4,16 +4,14 @@ function Footer({ cart, items }) {
   if (location.pathname === '/admin') return null;
   const handlePurchase = () => {
     if (cart.length === 0) {
-      console.log("장바구니가 비어 있습니다.");
+      console.log('장바구니가 비어 있습니다.');
       return;
     }
 
-    console.log("===== 구매 목록 =====");
+    console.log('===== 구매 목록 =====');
 
     cart.forEach((cartItem) => {
-      const product = items.find(
-        (item) => item.id === cartItem.id
-      );
+      const product = items.find((item) => item.id === cartItem.id);
 
       if (product) {
         console.log(
@@ -22,15 +20,12 @@ function Footer({ cart, items }) {
       }
     });
 
-    console.log("====================");
+    console.log('====================');
   };
 
   return (
     <footer>
-      <button
-        className="btn1 purchase"
-        onClick={handlePurchase}
-      >
+      <button className="btn1 purchase" onClick={handlePurchase}>
         장바구니 구매하기
       </button>
     </footer>

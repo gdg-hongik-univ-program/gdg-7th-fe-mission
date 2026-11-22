@@ -2,18 +2,18 @@ import { useState } from 'react';
 import ProductList from '../components/ProductList.jsx';
 
 function Sort({ items, cart, addToCart }) {
-  const [sortType, setSortType] = useState("name");
+  const [sortType, setSortType] = useState('name');
 
   const sortedItems = [...items].sort((a, b) => {
-    if (sortType === "name") {
-      return a.itemName.localeCompare(b.itemName, "ko");
+    if (sortType === 'name') {
+      return a.itemName.localeCompare(b.itemName, 'ko');
     }
 
-    if (sortType === "priceAsc") {
+    if (sortType === 'priceAsc') {
       return a.price - b.price;
     }
 
-    if (sortType === "priceDesc") {
+    if (sortType === 'priceDesc') {
       return b.price - a.price;
     }
 
@@ -31,11 +31,7 @@ function Sort({ items, cart, addToCart }) {
         <option value="priceDesc">가격 높은순</option>
       </select>
 
-      <ProductList
-        items={sortedItems}
-        cart={cart}
-        addToCart={addToCart}
-      />
+      <ProductList items={sortedItems} cart={cart} addToCart={addToCart} />
     </div>
   );
 }

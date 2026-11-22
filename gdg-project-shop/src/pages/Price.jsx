@@ -2,18 +2,14 @@ import { useState } from 'react';
 import ProductList from '../components/ProductList.jsx';
 
 function Price({ items, cart, addToCart }) {
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   // 잘못된 가격 범위인지 확인
   const isInvalid =
-    (minPrice !== "" && Number(minPrice) < 0) ||
-    (maxPrice !== "" && Number(maxPrice) < 0) ||
-    (
-      minPrice !== "" &&
-      maxPrice !== "" &&
-      Number(minPrice) > Number(maxPrice)
-    );
+    (minPrice !== '' && Number(minPrice) < 0) ||
+    (maxPrice !== '' && Number(maxPrice) < 0) ||
+    (minPrice !== '' && maxPrice !== '' && Number(minPrice) > Number(maxPrice));
 
   // 가격 범위에 맞는 상품 필터링
   const filteredItems = items.filter((item) => {
@@ -21,8 +17,8 @@ function Price({ items, cart, addToCart }) {
       return false;
     }
 
-    const min = minPrice === "" ? 0 : Number(minPrice);
-    const max = maxPrice === "" ? Infinity : Number(maxPrice);
+    const min = minPrice === '' ? 0 : Number(minPrice);
+    const max = maxPrice === '' ? Infinity : Number(maxPrice);
 
     return item.price >= min && item.price <= max;
   });
@@ -52,15 +48,9 @@ function Price({ items, cart, addToCart }) {
       </div>
 
       {isInvalid ? (
-        <p className="error-message">
-          올바른 가격 범위를 입력해 주세요.
-        </p>
+        <p className="error-message">올바른 가격 범위를 입력해 주세요.</p>
       ) : (
-        <ProductList
-          items={filteredItems}
-          cart={cart}
-          addToCart={addToCart}
-        />
+        <ProductList items={filteredItems} cart={cart} addToCart={addToCart} />
       )}
     </div>
   );

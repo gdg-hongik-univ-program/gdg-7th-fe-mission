@@ -77,17 +77,12 @@ function App() {
     // 재고 차감
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity - count }
-          : item
+        item.id === id ? { ...item, quantity: item.quantity - count } : item
       )
     );
 
     // 장바구니에 상품 추가
-    setCart((prevCart) => [
-      ...prevCart,
-      { id, count }
-    ]);
+    setCart((prevCart) => [...prevCart, { id, count }]);
   };
 
   return (
@@ -107,51 +102,28 @@ function App() {
           <Route
             path="/"
             element={
-              <Content
-                items={items}
-                cart={cart}
-                addToCart={addToCart}
-              />
+              <Content items={items} cart={cart} addToCart={addToCart} />
             }
           />
 
           <Route
             path="/price"
-            element={
-              <Price
-                items={items}
-                cart={cart}
-                addToCart={addToCart}
-              />
-            }
+            element={<Price items={items} cart={cart} addToCart={addToCart} />}
           />
 
           <Route
             path="/sort"
-            element={
-              <Sort
-                items={items}
-                cart={cart}
-                addToCart={addToCart}
-              />
-            }
+            element={<Sort items={items} cart={cart} addToCart={addToCart} />}
           />
 
           <Route
             path="/category"
             element={
-              <Category
-                items={items}
-                cart={cart}
-                addToCart={addToCart}
-              />
+              <Category items={items} cart={cart} addToCart={addToCart} />
             }
           />
 
-          <Route
-            path="/admin"
-            element={<Admin onRefresh={fetchProducts} />}
-          />
+          <Route path="/admin" element={<Admin onRefresh={fetchProducts} />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
