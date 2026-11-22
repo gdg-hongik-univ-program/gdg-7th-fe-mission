@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Item from '../components/Item';
  
-function CategoryPage({ items, cart, setCart }) {
+function CategoryPage({ items }) {
   const [category, setCategory] = useState('');
 
   const filteredItems =
@@ -24,7 +24,7 @@ function CategoryPage({ items, cart, setCart }) {
       </select>
 
       {filteredItems.map((item) => (
-        <Item key={item.id} item={item} cart={cart} setCart={setCart} />
+        <Item key={item.id} item={item} />
       ))}
     </main>
   );
