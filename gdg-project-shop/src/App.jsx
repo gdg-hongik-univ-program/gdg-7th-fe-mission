@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Content from './components/Content';
+import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
 import CategoryPage from './pages/CategoryPage';
 import SortPage from './pages/SortPage';
@@ -11,7 +11,6 @@ import AdminPage from './pages/AdminPage';
 
 
 function App() {
-  const [cart, setCart] = useState([]);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -55,14 +54,14 @@ function App() {
     <div className="app">
       <Navbar />
       <Routes>
-        <Route path="/" element={showPage(<Content items={items} cart={cart} setCart={setCart} />)} />
-        <Route path="/category" element={showPage(<CategoryPage items={items} cart={cart} setCart={setCart} />)} />
-        <Route path="/price" element={showPage(<PricePage items={items} cart={cart} setCart={setCart} />)} />
-        <Route path="/sort" element={showPage(<SortPage items={items} cart={cart} setCart={setCart} />)} />
+        <Route path="/" element={showPage(<HomePage items={items} />)} />
+        <Route path="/category" element={showPage(<CategoryPage items={items} />)} />
+        <Route path="/price" element={showPage(<PricePage items={items} />)} />
+        <Route path="/sort" element={showPage(<SortPage items={items} />)} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<p>404</p>} />
       </Routes>
-      <Footer cart={cart} />
+      <Footer />
     </div>
   );
 }

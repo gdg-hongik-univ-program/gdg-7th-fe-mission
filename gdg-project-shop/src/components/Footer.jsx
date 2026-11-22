@@ -1,7 +1,10 @@
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 import { purchaseProducts } from '../apis/products';
 import { useLocation } from 'react-router-dom';
 
-function Footer({ cart }) {
+function Footer() {
+  const { cart } = useContext(CartContext);
   const location = useLocation();
   const isAdminPage = location.pathname === '/admin';
   const handlePurchase = async () => {

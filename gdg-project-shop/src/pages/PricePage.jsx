@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Item from '../components/Item';
  
-function PricePage({ items, cart, setCart }) {
+function PricePage({ items }) {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [filteredItems, setFilteredItems] = useState(null);
@@ -47,7 +47,7 @@ const shownItems = filteredItems === null ? items : filteredItems;
         </button>
       </div>
       {shownItems.map((item) => (
-        <Item key={item.id} item={item} cart={cart} setCart={setCart} />
+        <Item key={item.id} item={item} />
       ))}
     </main>
   );
